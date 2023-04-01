@@ -38,15 +38,16 @@ class BudgetBuddy(MDApp):
         return sm
    
         
-#--------H O M E   P A G E ----------#         
-    
-
-
+#--------Back To Home------------------------------------------       
     def back(self):
         BudgetBuddy.home(self)
+
+#-------Buttton1----------------------------------------------        
     def btn1(self):
         sm.current= 'btn1'
         sm.transition.direction = 'left'
+
+#        
     def profile(self):
         sm.current= "profile"
         sm.transition.direction = "left"
