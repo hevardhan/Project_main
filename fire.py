@@ -73,23 +73,26 @@ def check_mail(email):
     else:
         return False
 
-def check_user(userid):
+def check_userID(userid):
     try:
-        auth.get_user(userid)
-        return True
-    except:
+        auth.get_user(uid=userid)
         return False
+    except auth.UserNotFoundError:
+        return True
 #Create User---------------------------------------------------------------------------------
 def create_user(user_id,email,paswd, confirm_paswd, disp_name):
-    if check(email,paswd) == True:
-        if paswd == confirm_paswd:
-            try:
-                auth.create_user(uid = f"{user_id}", email = f"{email}", password = f"{paswd}", display_name = f"{disp_name}")
-                return 0
-            except auth.UidAlreadyExistsError:
-                return 1   
+    if check_userID(userid=user_id) == True:
+        if check(email,paswd) == True:
+            if paswd == confirm_paswd:
+                try:
+                    auth.create_user(uid = f"{user_id}", email = f"{email}", password = f"{paswd}", display_name = f"{disp_name}")
+                    return 0
+                except:
+                    return 1   
+            else:
+                return 2
         else:
-            return 2
+            return 4
     else:
         return 4
 
@@ -137,5 +140,5 @@ def add_trans(user_id, td):
 # create_db(user_id="chris", disp_name="Chris Evans", setting_data=database.sd)
 # add_trans(user_id="chris",td= database.td)
 
-
+# print(create_user(user_id="chris",email="chris1@mail.com",paswd="11223344",confirm_paswd="11223344", disp_name="Chris"))
     
