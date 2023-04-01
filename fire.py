@@ -79,18 +79,15 @@ def check_user(userid):
         return True
     except:
         return False
-#Signin---------------------------------------------------------------------------------
-def signin(user_id,email,paswd, confirm_paswd, disp_name):
+#Create User---------------------------------------------------------------------------------
+def create_user(user_id,email,paswd, confirm_paswd, disp_name):
     if check(email,paswd) == True:
         if paswd == confirm_paswd:
-            if check_user(user_id)==False:
-                try:
-                    auth.create_user(uid = f"{user_id}", email = f"{email}", password = f"{paswd}", display_name = f"{disp_name}")
-                    return 0
-                except:
-                    return 1
-            else:
-                return 3
+            try:
+                auth.create_user(uid = f"{user_id}", email = f"{email}", password = f"{paswd}", display_name = f"{disp_name}")
+                return 0
+            except auth.UidAlreadyExistsError:
+                return 1   
         else:
             return 2
     else:
@@ -126,17 +123,6 @@ def forgot_paswd(user_email):
     except:
         return 1
 
-# Forgot UserID-------------------------------------------------------------------------
-
-# Create User---------------------------------------------------------------------------
-def create_user(userid, disp_name, mail, passwd):
-    try:
-        if auth.create_user(uid=userid, display_name = disp_name, email=mail, password=passwd):
-            return 0
-
-    except auth.UidAlreadyExistsError as e:
-        print(e)
-        return 1
 
 
 # Add Transaction------------------------------------------------------------------------
