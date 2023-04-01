@@ -39,12 +39,9 @@ class BudgetBuddy(MDApp):
         return sm
    
         
-<<<<<<< HEAD
 #--------H O M E   P A G E ----------#         
     
-=======
 #--------Back To Home------------------------------------------       
->>>>>>> 948cf2fcbc4858c92b2aa329bc1c39fc9ab32650
     def back(self):
         BudgetBuddy.home(self)
 
