@@ -20,13 +20,13 @@ class ContentNavigationDrawer(BoxLayout):
 class BudgetBuddy(MDApp):
     
     global sm
-
+    
     sm = ScreenManager()
     def build(self):
         self.theme_cls.primary_palette = "Blue"
         self.theme_cls.primary_hue = "500"
         self.theme_cls.accent_palette = "Gray"
-        
+        self.USERNAME = " "
         sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home2.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
@@ -36,24 +36,24 @@ class BudgetBuddy(MDApp):
         sm.add_widget(Builder.load_file("kv/forgot.kv"))
 
         return sm
-    def display_name(self, user_name):
-        self.root.get_screen('home2').ids.name.text = user_name
+   
+        
 #--------H O M E   P A G E ----------#         
-    class HomePage(MDApp):
-        def __init__(hom,name):
-            hom.Username = name
-        def back(hom):
-            BudgetBuddy.home(hom)
-        def btn1(hom):
-            sm.current= 'btn1'
-            sm.transition.direction = 'left'
-        def profile(hom):
-            sm.current= "profile"
-            sm.transition.direction = "left"
-        def home(hom):
-            sm.current = "home2"
-            sm.transition.direction = "right"
-            BudgetBuddy.display_name(super.self(),hom.Username)
+    
+
+
+    def back(self):
+        BudgetBuddy.home(self)
+    def btn1(self):
+        sm.current= 'btn1'
+        sm.transition.direction = 'left'
+    def profile(self):
+        sm.current= "profile"
+        sm.transition.direction = "left"
+    def home(self):
+        sm.current = "home2"
+        sm.transition.direction = "right"
+        self.root.get_screen('home2').ids.name.text = self.USERNAME
     def login(self):
         sm.current = "login"
         sm.transition.direction = "left"
@@ -73,6 +73,7 @@ class BudgetBuddy(MDApp):
     def sign_in(self):
         username = self.root.get_screen("login").ids.user.text
         passwd = self.root.get_screen("login").ids.pwd.text
+        self.USERNAME = username
         if fire.check(username,passwd) == True:
             if fire.login(user_id=username,paswd=passwd):
                 BudgetBuddy.home(self,username)
@@ -85,9 +86,9 @@ class BudgetBuddy(MDApp):
         us_name = self.root.get_screen('sign-up').ids.user.text
         pswrd   = self.root.get_screen('sign-up').ids.pwd.text
         email_id= self.root.get_screen('sign-up').ids.email.text
-        
+        self.USERNAME = us_name
         if (us_name == "chris"):
-            BudgetBuddy.HomePage(us_name).home()
+            BudgetBuddy.home(self)
 
     def forgot(self):
         sm.current = 'forgot-pass'
