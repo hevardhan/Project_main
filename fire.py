@@ -109,6 +109,15 @@ def login(user_id, paswd):
 
 
 #Forgot Password-------------------------------------------------------------------------
+
+# Create Database-----------------------------------------------------------------------
+# datab = firebase.database()
+ref = db.reference("Userdata")
+def create_db(user_id, disp_name, setting_data):
+    ref.child(f"{user_id}").set({"Name": f"{disp_name}","Number of Transactions":0})
+    ref.child(f"{user_id}").child("Settings_data").set(setting_data)
+
+
 def forgot_paswd(user_email):
     try:
         user_details = auth.get_user_by_email(user_email)
@@ -119,13 +128,15 @@ def forgot_paswd(user_email):
 
 # Forgot UserID-------------------------------------------------------------------------
 
-# Create Database-----------------------------------------------------------------------
-# datab = firebase.database()
-ref = db.reference("Userdata")
+# Create User---------------------------------------------------------------------------
+def create_user(userid, disp_name, mail, passwd):
+    try:
+        if auth.create_user(uid=userid, display_name = disp_name, email=mail, password=passwd):
+            return 0
 
-def create_db(user_id, disp_name, setting_data):
-    ref.child(f"{user_id}").set({"Name": f"{disp_name}","Number of Transactions":0})
-    ref.child(f"{user_id}").child("Settings_data").set(setting_data)
+    except auth.UidAlreadyExistsError as e:
+        print(e)
+        return 1
 
 
 # Add Transaction------------------------------------------------------------------------
