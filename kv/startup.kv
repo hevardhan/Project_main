@@ -1,0 +1,62 @@
+MDScreen:
+    name: "startup"
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDIcon:
+            icon: "bitcoin"
+            pos_hint: {'center_x':0.08,'center_y':0.955}
+            font_size: '35sp'
+            padding_x: 5
+            halign: 'left'
+        MDLabel:
+            text: 'Budget Buddy'
+            font_name: "assets/abode"
+            font_size: "20sp"
+            pos_hint: {'center_x':0.65,'center_y':0.95}
+            halign: 'left'
+        Image:
+            source: "assets/work_women1.png"
+            pos_hint:  {'center_x':0.5,'center_y':0.7}
+            size_hint: 0.7,0.7
+        MDLabel:
+            text: 'H E Y  B U D D Y !'
+            font_name: "assets/Poppins-Bold"
+            font_size: "25sp"
+            pos_hint: {'center_x':0.5,'center_y':0.45}
+            halign: 'center'
+        MDLabel:
+            text: 'Best place to keep a track and manage\nall your daily expenses'
+            font_name: "assets/Poppins-Medium"
+            font_size: "15sp"
+            padding_x: 5
+            pos_hint: {'center_x':0.5,'center_y':0.37}
+            halign: 'center'
+            color: "grey"
+        Button:
+            text: 'LOGIN'
+            size_hint: 0.66,0.065
+            pos_hint: {'center_x': 0.5,'center_y': 0.25}
+            background_color: 0,0,0,0
+            font_name: "assets/Poppins-Bold"
+            on_release: app.login()
+            canvas.before:
+                Color:
+                    rgb: rgba(52,0,231,255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+        Button:
+            text: 'SIGNUP'
+            size_hint: 0.66,0.065
+            pos_hint: {'center_x': 0.5,'center_y': 0.15}
+            background_color: 0,0,0,0
+            font_name: "assets/Poppins-Bold"
+            on_release: app.sign_up()
+            color: rgba(52,0,231,255)
+            canvas.before:
+                Color:
+                    rgb: rgba(52,0,231,255)
+                Line:
+                    width:2
+                    rounded_rectangle: self.x, self.y, self.width, self.height, 5,5,5,5,100

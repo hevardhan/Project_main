@@ -1,0 +1,101 @@
+MDScreen:
+    name: "login"
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDIconButton:
+            icon: 'arrow-left'
+            pos_hint: {'center_y':0.95}
+            on_release: app.startup()
+        MDLabel:
+            text: "W E L C O M E !"
+            font_name: "assets/Poppins-Bold"
+            font_size: "25sp"
+            pos_hint: {'center_x':0.5,'center_y':0.85}
+            padding_x: 30
+        MDLabel:
+            text: "Sign in to continue"
+            font_name: "assets/Poppins-Medium"
+            font_size: "15sp"
+            pos_hint: {'center_x':0.5,'center_y':0.80}
+            padding_x: 30
+            color: "grey"
+        MDTextField:
+            id: user
+            hint_text: "Username"
+            pos_hint: {'center_x': .5, 'center_y': .63}
+            text_color_focus: rgba(0,0,59,255)
+            font_name: "assets/Poppins-Medium"
+            font_size: "20sp"
+            size_hint_x: 0.8
+            anchor: "left"
+            color_mode: 'custom'
+            line_color_focus: rgba(0,0,59,255)
+            hint_text_color_focus: rgba(0,0,59,255)
+            multiline: False
+        MDTextField:
+            id: pwd
+            hint_text: "Password"
+            pos_hint: {'center_x': .5, 'center_y': .48}
+            text_color_focus: rgba(0,0,59,255)
+            font_name: "assets/Poppins-Medium"
+            font_size: "20sp"
+            size_hint_x: 0.8
+            anchor: "left"
+            color_mode: 'custom'
+            line_color_focus: rgba(0,0,59,255)
+            hint_text_color_focus: rgba(0,0,59,255)
+            multiline: False
+            password: True
+        Button:
+            text: 'LOGIN'
+            size_hint: 0.66,0.065
+            pos_hint: {'center_x': 0.5,'center_y': .35}
+            background_color: 0,0,0,0
+            font_name: "assets/Poppins-Bold"
+            on_release: app.sign_in()
+            canvas.before:
+                Color:
+                    rgb: rgba(52,0,231,255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+        MDTextButton:
+            text: "Forgot Password?"
+            pos_hint: {'center_x':.5,'center_y': .28}
+            color: rgba(68,78,132,255)
+            font_size: "12sp"
+            font_name: "assets/Poppins-Bold"
+            on_release: app.forgot()
+        MDLabel:
+            text: 'or'
+            color: rgba(52,0,231,255)
+            pos_hint: {'center_y': .22}
+            font_size: '13sp'
+            font_name: 'assets/Poppins-Bold'
+            halign: 'center'
+        MDFloatLayout:
+            md_bg_color: rgba(178,178,178,255)   
+            size_hint: .3, .002
+            pos_hint: {'center_x':.3,'center_y':.218}
+        MDFloatLayout:
+            md_bg_color: rgba(178,178,178,255)   
+            size_hint: .3, .002
+            pos_hint: {'center_x':.7,'center_y':.218}   
+        MDLabel:
+            text: 'Social Media Login'
+            font_name: 'assets/Poppins-Bold'
+            font_size: '13sp'
+            halign: 'center'
+            pos_hint: {'center_y':.16} 
+            color: rgba(135,135,193,255)
+        MDGridLayout:
+            cols:3
+            size_hint: .70, .07
+            pos_hint: {"center_x": .5, "center_y": .1}
+            Image:
+                source: 'assets/google.png'
+            Image:
+                source: 'assets/fb.png'
+            Image:
+                source: 'assets/apple.png'

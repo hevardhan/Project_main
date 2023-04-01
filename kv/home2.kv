@@ -1,0 +1,96 @@
+<Card@MDCard>
+    orientation: 'vertical'
+    radius: 12
+    padding: '12dp',0,'12dp','24dp'
+    ripple_behavior: True
+    Image:
+        source: root.source
+    MDLabel:
+        text: root.text
+        halign: 'center'
+        font_size: '13sp'
+        adaptive_height: True
+        font_name: 'assets/Poppins-Medium'
+MDScreen:
+    name: 'home2'
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDBottomNavigation:
+                    MDBottomNavigationItem:
+                        name: 'today screen'
+                        icon: 'home'
+                        text: 'Home'
+                        MDScreen:
+                            FitImage:
+                                source: 'assets/bg.jpg'
+                            MDLabel:
+                                text: 'Good Morning,'
+                                font_name: 'assets/Poppins-Medium'
+                                font_size: '18sp'
+                                pos_hint: {'center_y': 0.9}
+                                padding_x: 20
+                                adaptive_height: True
+                            MDLabel:
+                                text: " "
+                                id: name
+                                font_name: 'assets/Poppins-Medium'
+                                font_size: '25sp'
+                                pos_hint: {'center_y': 0.85}
+                                padding_x: 20
+                                adaptive_height: True
+                            MDIconButton:
+                                icon: "assets/menu.png"
+                                md_bg_color: 'white'
+                                pos_hint: {'center_x': .90,'center_y':.90}
+                                on_release:nav_drawer.set_state('toggle')
+                            MDGridLayout:
+                                cols:2
+                                rows:2
+                                spacing: '18dp'
+                                padding: '24dp'
+                                size_hint_y: None
+                                height: 2*(root.height/3)
+
+                                Card:
+                                    source: 'assets/btn.png'
+                                    text: 'Daily Expenses'
+                                    on_release: app.btn1()
+                                Card:
+                                    source: 'assets/btn21.png'
+                                    text: 'Balance and History'
+                                Card:
+                                    source: 'assets/btn31.png'
+                                    text: 'Reports'
+                                Card:
+                                    source: 'assets/btn4.png'
+                                    text: 'More'
+
+                    MDBottomNavigationItem:
+                        name: 'recommendation screen'
+                        icon: 'cloud-search'
+                        text: 'AI Search' 
+                        radius: [50,50,0,0]
+                        MDScreen:
+                            FitImage:
+                                source: 'assets/bg.jpg'
+                            Image:
+                                source: 'assets/rocket.png'
+                                size_hint: .5,.5
+                                pos_hint: {'center_x':0.5,'center_y':0.7}
+                            MDLabel:
+                                text: 'C O M I N  G  S O O N !'
+                                font_name: 'assets/Poppins-Bold'
+                                font_size: '25sp'
+                                pos_hint: {'center_x':0.5,'center_y':0.4}
+                                halign: 'center'
+                                
+                    MDBottomNavigationItem:
+                        name: 'settings screen'
+                        icon: 'cog'
+                        text: 'Settings'     
+        MDNavigationDrawer:
+            id: nav_drawer
+            anchor: 'right'
+            ContentNavigationDrawer:    
+            

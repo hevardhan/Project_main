@@ -1,0 +1,16 @@
+MDScreen:
+    name: 'profile'
+    MDFloatLayout:
+        MDTopAppBar:
+            title: 'Profile'
+            md_bg_color: "#2fb9ea"
+            left_action_items: [["arrow-left-drop-circle", lambda x: app.home()]]
+            elevation: 0
+            pos_hint: {'center_x': 0.5,'center_y': 0.95}
+        Image:
+            source: "assets\\profile2.png"
+            pos_hint: {'center_x': 0.5,'center_y': 0.75}
+        MDLabel:
+            text: "NAME"
+            pos_hint: {'center_x': .5,'center_y': 0.60}
+            halign: "center"
