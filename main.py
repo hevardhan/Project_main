@@ -27,6 +27,7 @@ class BudgetBuddy(MDApp):
         self.theme_cls.primary_hue = "500"
         self.theme_cls.accent_palette = "Gray"
         self.USERNAME = " "
+        
         sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home2.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
@@ -40,8 +41,6 @@ class BudgetBuddy(MDApp):
         
 #--------H O M E   P A G E ----------#         
     
-
-
     def back(self):
         BudgetBuddy.home(self)
     def btn1(self):

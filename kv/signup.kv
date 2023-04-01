@@ -10,19 +10,19 @@ MDScreen:
             text: "H i !"
             font_name: "assets/Poppins-Bold"
             font_size: "25sp"
-            pos_hint: {'center_x':0.5,'center_y':0.85}
+            pos_hint: {'center_x':0.5,'center_y':0.9}
             padding_x: 30
         MDLabel:
             text: "Create a new account"
             font_name: "assets/Poppins-Medium"
             font_size: "15sp"
-            pos_hint: {'center_x':0.5,'center_y':0.79}
+            pos_hint: {'center_x':0.5,'center_y':0.85}
             padding_x: 30
             color: "grey"
         MDTextField:
             id: user
-            hint_text: "Name"
-            pos_hint: {'center_x': .5, 'center_y': .675}
+            hint_text: "Username"
+            pos_hint: {'center_x': .5, 'center_y': .75}
             text_color_focus: rgba(0,0,59,255)
             font_name: "assets/Poppins-Medium"
             font_size: "20sp"
@@ -32,6 +32,20 @@ MDScreen:
             line_color_focus: rgba(0,0,59,255)
             hint_text_color_focus: rgba(0,0,59,255)
             multiline: False
+        MDTextField:
+            id: dname
+            hint_text: "Display Name"
+            pos_hint: {'center_x': .5, 'center_y': .65}
+            text_color_focus: rgba(0,0,59,255)
+            font_name: "assets/Poppins-Medium"
+            font_size: "20sp"
+            size_hint_x: 0.8
+            anchor: "left"
+            color_mode: 'custom'
+            line_color_focus: rgba(0,0,59,255)
+            hint_text_color_focus: rgba(0,0,59,255)
+            multiline: False
+
         MDTextField:
             id: email
             hint_text: "Email"
@@ -48,7 +62,7 @@ MDScreen:
         MDTextField:
             id: pwd
             hint_text: "Password"
-            pos_hint: {'center_x': .5, 'center_y': .425}
+            pos_hint: {'center_x': .5, 'center_y': .45}
             text_color_focus: rgba(0,0,59,255)
             font_name: "assets/Poppins-Medium"
             font_size: "20sp"
@@ -59,10 +73,23 @@ MDScreen:
             hint_text_color_focus: rgba(0,0,59,255)
             multiline: False
             password: True
+        MDTextField:
+            id: c_pwd
+            hint_text: "Confirm Password"
+            pos_hint: {'center_x': .5, 'center_y': .35}
+            text_color_focus: rgba(0,0,59,255)
+            font_name: "assets/Poppins-Medium"
+            font_size: "20sp"
+            size_hint_x: 0.8
+            anchor: "left"
+            color_mode: 'custom'
+            line_color_focus: rgba(0,0,59,255)
+            hint_text_color_focus: rgba(0,0,59,255)
+            multiline: False
         Button:
             text: 'SIGNUP'
             size_hint: 0.66,0.065
-            pos_hint: {'center_x': 0.5,'center_y': .30}
+            pos_hint: {'center_x': 0.5,'center_y': .25}
             background_color: 0,0,0,0
             font_name: "assets/Poppins-Bold"
             on_release: app.create_user()
@@ -76,29 +103,29 @@ MDScreen:
         MDLabel:
             text: 'or'
             color: rgba(52,0,231,255)
-            pos_hint: {'center_y': .22}
+            pos_hint: {'center_y': .18}
             font_size: '13sp'
             font_name: 'assets/Poppins-Bold'
             halign: 'center'
         MDFloatLayout:
             md_bg_color: rgba(178,178,178,255)   
             size_hint: .3, .002
-            pos_hint: {'center_x':.3,'center_y':.218}
+            pos_hint: {'center_x':.3,'center_y':.178}
         MDFloatLayout:
             md_bg_color: rgba(178,178,178,255)   
             size_hint: .3, .002
-            pos_hint: {'center_x':.7,'center_y':.218}   
+            pos_hint: {'center_x':.7,'center_y':.178}   
         MDLabel:
             text: 'Social Media Login'
             font_name: 'assets/Poppins-Bold'
             font_size: '13sp'
             halign: 'center'
-            pos_hint: {'center_y':.16} 
+            pos_hint: {'center_y':.135} 
             color: rgba(135,135,193,255)
         MDGridLayout:
             cols:3
             size_hint: .70, .07
-            pos_hint: {"center_x": .5, "center_y": .1}
+            pos_hint: {"center_x": .5, "center_y": .07}
             Image:
                 source: 'assets/google.png'
             Image:
