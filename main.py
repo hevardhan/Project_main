@@ -6,7 +6,7 @@ from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.card import MDCard
 from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
-import fire
+import fire 
 
 class Card(MDCard):
     source = StringProperty()
@@ -90,10 +90,19 @@ class BudgetBuddy(MDApp):
         us_name = self.root.get_screen('sign-up').ids.user.text
         pswrd   = self.root.get_screen('sign-up').ids.pwd.text
         email_id= self.root.get_screen('sign-up').ids.email.text
+        dis_name = self.root.get_screen('sign-up').ids.dname.text
+        conf_pwd = self.root.get_screen('sign-up').ids.cpwd.text
         self.USERNAME = us_name
-        if (us_name == "chris"):
-            BudgetBuddy.home(self)
-
+        check = fire.create_user(user_id=us_name,email=email_id,paswd=pswrd,confirm_paswd=conf_pwd,disp_name=dis_name)
+        if check == 0:
+            pass
+        elif check == 1:
+            Snackbar(text="Username already exists").open()
+        elif check == 2 :
+            Snackbar(text="Confirm Passowrd doesnt match").open()
+        elif check == 4:
+            Snackbar(text="Invalid Email id or Password").open()
+        
     def forgot(self):
         sm.current = 'forgot-pass'
         sm.transition.direction = "left"
