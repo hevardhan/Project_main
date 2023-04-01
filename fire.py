@@ -40,7 +40,7 @@ def check(email, pwd):
     paswd_ok = False
 
     while verify_email(email) == True:
-        if len(pwd) <= 8:
+        if len(pwd) < 8:
             paswd_ok = False
             break
         
@@ -92,7 +92,7 @@ def create_user(user_id,email,paswd, confirm_paswd, disp_name):
             else:
                 return 2
         else:
-            return 4
+            return 3
     else:
         return 4
 
@@ -100,13 +100,17 @@ def create_user(user_id,email,paswd, confirm_paswd, disp_name):
 def login(user_id, paswd):
     try:
         user_details = auth.get_user(user_id)
-        mail = user_details.email
-        authent.sign_in_with_email_and_password(email = mail,password= paswd)
-        
-        return 0
+    except firebase_admin._auth_utils.UserNotFoundError:
+        return 1
     except:
-        return 1 
-
+        return 3
+    else:
+        mail = user_details.email
+        try:
+            authent.sign_in_with_email_and_password(email = mail,password= paswd)
+            return 0
+        except :
+            return 2
 
 #Forgot Password-------------------------------------------------------------------------
 
@@ -141,4 +145,8 @@ def add_trans(user_id, td):
 # add_trans(user_id="chris",td= database.td)
 
 # print(create_user(user_id="chris",email="chris1@mail.com",paswd="11223344",confirm_paswd="11223344", disp_name="Chris"))
-    
+
+def get_display_name(uid):
+    details = auth.get_user(uid)
+    return details.display_name
+

@@ -77,14 +77,17 @@ class BudgetBuddy(MDApp):
     def sign_in(self):
         username = self.root.get_screen("login").ids.user.text
         passwd = self.root.get_screen("login").ids.pwd.text
-        self.USERNAME = username
-        if fire.check(username,passwd) == True:
-            if fire.login(user_id=username,paswd=passwd):
-                BudgetBuddy.home(self,username)
-            else:
-                Snackbar(text="Login Failed").open()
+        
+        if fire.login(user_id=username,paswd=passwd) == 0 :
+            self.USERNAME = fire.get_display_name(username)
+            BudgetBuddy.home(self)
+            
+        elif fire.login(user_id=username,paswd=passwd) == 1:
+            Snackbar(text="Invaild Username").open()
+        elif fire.login(user_id=username,paswd=passwd) == 3:
+            Snackbar(text="Unknown Error").open()        
         else:
-            Snackbar(text = "Username or Password Invalid").open()
+            Snackbar(text = "Invalid Password").open()
 
     def create_user(self):
         us_name = self.root.get_screen('sign-up').ids.user.text
@@ -92,17 +95,18 @@ class BudgetBuddy(MDApp):
         email_id= self.root.get_screen('sign-up').ids.email.text
         dis_name = self.root.get_screen('sign-up').ids.dname.text
         conf_pwd = self.root.get_screen('sign-up').ids.cpwd.text
-        self.USERNAME = us_name
+        self.USERNAME = dis_name
         check = fire.create_user(user_id=us_name,email=email_id,paswd=pswrd,confirm_paswd=conf_pwd,disp_name=dis_name)
         if check == 0:
-            pass
-        elif check == 1:
+            BudgetBuddy.home(self)
+        elif check == 4:
             Snackbar(text="Username already exists").open()
         elif check == 2 :
             Snackbar(text="Confirm Passowrd doesnt match").open()
-        elif check == 4:
+        elif check == 3:
             Snackbar(text="Invalid Email id or Password").open()
-        
+        elif check ==1:
+            Snackbar(text="Unknown Error").open()
     def forgot(self):
         sm.current = 'forgot-pass'
         sm.transition.direction = "left"
