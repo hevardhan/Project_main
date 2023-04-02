@@ -3,7 +3,6 @@ import firebase_admin
 import re
 from firebase_admin import credentials
 from firebase_admin import db
-from verify_email import verify_email
 from firebase_admin import auth
 import database
 
@@ -31,10 +30,9 @@ authent = firebase.auth()
 
 # Checking Email and Password ----------------------------------------------------------
 def check(email, pwd):
-
     paswd_ok = False
-
-    while verify_email(email) == True:
+    
+    while check_mail(email) == True:
         if len(pwd) < 8:
             paswd_ok = False
             break
@@ -63,11 +61,15 @@ def check(email, pwd):
 
 # Checking Email------------------------------------------------------------------------
 def check_mail(email):
-    if verify_email(email) == True:
+
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+
+    if re.fullmatch(regex,email):
         return True
     else:
         return False
 
+    
 def check_userID(userid):
     try:
         auth.get_user(uid=userid)
