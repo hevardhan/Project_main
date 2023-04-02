@@ -4,10 +4,10 @@
 title = Budget Buddy
 
 # (str) Package name
-package.name = myapp
+package.name = Budget-Buddy-1
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = org.Budget_Buddy
 
 # (str) Source code where the main.py live
 source.dir = .
