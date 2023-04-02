@@ -29,11 +29,6 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 
 authent = firebase.auth()
 
-# user_id = "chris"
-# user_email = "chris@gmail.com"
-# user_pwd = "Chris123"
-
-
 # Checking Email and Password ----------------------------------------------------------
 def check(email, pwd):
 
@@ -86,6 +81,7 @@ def create_user(user_id,email,paswd, confirm_paswd, disp_name):
             if paswd == confirm_paswd:
                 try:
                     auth.create_user(uid = f"{user_id}", email = f"{email}", password = f"{paswd}", display_name = f"{disp_name}")
+                    create_db(user_id=user_id,disp_name=disp_name)
                     return 0
                 except:
                     return 1   
@@ -112,16 +108,16 @@ def login(user_id, paswd):
         except :
             return 2
 
-#Forgot Password-------------------------------------------------------------------------
-
 # Create Database-----------------------------------------------------------------------
 # datab = firebase.database()
 ref = db.reference("Userdata")
-def create_db(user_id, disp_name, setting_data):
+def create_db(user_id, disp_name):
     ref.child(f"{user_id}").set({"Name": f"{disp_name}","Number of Transactions":0})
+
+def add_setting_data(user_id, setting_data):    
     ref.child(f"{user_id}").child("Settings_data").set(setting_data)
 
-
+#Forgot Password-------------------------------------------------------------------------
 def forgot_paswd(user_email):
     try:
         user_details = auth.get_user_by_email(user_email)
@@ -149,4 +145,5 @@ def add_trans(user_id, td):
 def get_display_name(uid):
     details = auth.get_user(uid)
     return details.display_name
+
 
