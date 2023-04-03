@@ -86,20 +86,14 @@ MDScreen:
             line_color_focus: rgba(0,0,59,255)
             hint_text_color_focus: rgba(0,0,59,255)
             multiline: False
-        Button:
+        MDRaisedButton:
             text: 'SIGNUP'
             size_hint: 0.66,0.065
             pos_hint: {'center_x': 0.5,'center_y': .25}
-            background_color: 0,0,0,0
+            md_bg_color: rgba(52,0,231,255)
             font_name: "assets/Poppins-Bold"
             on_release: app.create_user()
-            canvas.before:
-                Color:
-                    rgb: rgba(52,0,231,255)
-                RoundedRectangle:
-                    size: self.size
-                    pos: self.pos
-                    radius: [5]
+            pos: self.pos
         MDLabel:
             text: 'or'
             color: rgba(52,0,231,255)

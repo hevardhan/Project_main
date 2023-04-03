@@ -32,28 +32,22 @@ MDScreen:
             pos_hint: {'center_x':0.5,'center_y':0.37}
             halign: 'center'
             color: "grey"
-        Button:
+        MDRaisedButton:
             text: 'LOGIN'
             size_hint: 0.66,0.065
             pos_hint: {'center_x': 0.5,'center_y': 0.25}
-            background_color: 0,0,0,0
+            md_bg_color: rgba(52,0,231,255)
             font_name: "assets/Poppins-Bold"
             on_release: app.login()
-            canvas.before:
-                Color:
-                    rgb: rgba(52,0,231,255)
-                RoundedRectangle:
-                    size: self.size
-                    pos: self.pos
-                    radius: [5]
-        Button:
-            text: 'SIGNUP'
+            increment_width: "164dp"
+            pos: self.pos
+        MDFlatButton:
+            text: '[color=rgba(52,0,231,255)]SIGNUP[/color]'
             size_hint: 0.66,0.065
             pos_hint: {'center_x': 0.5,'center_y': 0.15}
-            background_color: 0,0,0,0
+            markup: True
             font_name: "assets/Poppins-Bold"
             on_release: app.sign_up()
-            color: rgba(52,0,231,255)
             canvas.before:
                 Color:
                     rgb: rgba(52,0,231,255)

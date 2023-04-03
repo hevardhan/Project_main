@@ -46,20 +46,16 @@ MDScreen:
             hint_text_color_focus: rgba(0,0,59,255)
             multiline: False
             password: True
-        Button:
+        MDRaisedButton:
             text: 'LOGIN'
             size_hint: 0.66,0.065
             pos_hint: {'center_x': 0.5,'center_y': .35}
-            background_color: 0,0,0,0
+            md_bg_color: rgba(52,0,231,255)
             font_name: "assets/Poppins-Bold"
             on_release: app.sign_in()
-            canvas.before:
-                Color:
-                    rgb: rgba(52,0,231,255)
-                RoundedRectangle:
-                    size: self.size
-                    pos: self.pos
-                    radius: [5]
+            increment_width: "164dp"
+            pos: self.pos
+
         MDTextButton:
             text: "Forgot Password?"
             pos_hint: {'center_x':.5,'center_y': .28}

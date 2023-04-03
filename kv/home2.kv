@@ -70,7 +70,7 @@ MDScreen:
                         name: 'recommendation screen'
                         icon: 'cloud-search'
                         text: 'AI Search' 
-                        radius: [50,50,0,0]
+                        
                         MDScreen:
                             FitImage:
                                 source: 'assets/bg.jpg'
@@ -84,13 +84,14 @@ MDScreen:
                                 font_size: '25sp'
                                 pos_hint: {'center_x':0.5,'center_y':0.4}
                                 halign: 'center'
-                                
+
                     MDBottomNavigationItem:
-                        name: 'settings screen'
-                        icon: 'cog'
-                        text: 'Settings'     
+                        name: 'Profile screen'
+                        icon: 'account'
+                        text: 'Profile'     
         MDNavigationDrawer:
             id: nav_drawer
             anchor: 'right'
+            radius: [30,0,0,30]
             ContentNavigationDrawer:    
             
