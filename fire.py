@@ -1,9 +1,8 @@
-import pyrebase
-import firebase_admin
-import re
+from pyrebase import initialize_app as p_init
+from re import search, fullmatch
 from firebase_admin import credentials
-from firebase_admin import db
-from firebase_admin import auth
+from firebase_admin import initialize_app as f_admin_init
+from firebase_admin import db, auth, _auth_utils
 import database
 
 # Firebase Configurationcand Credentials---------------------------------------------------------------
@@ -21,10 +20,10 @@ firebaseConfig = {
 cred = credentials.Certificate('budget-buddy-key.json')
 
 # Initializing Firebase------------------------------------------------------------------
-firebase_admin.initialize_app(cred, {"databaseURL": "https://budget-buddy-11-default-rtdb.firebaseio.com"}  )
+f_admin_init(cred, {"databaseURL": "https://budget-buddy-11-default-rtdb.firebaseio.com"}  )
 
 
-firebase = pyrebase.initialize_app(firebaseConfig)
+firebase = p_init(firebaseConfig)
 
 authent = firebase.auth()
 
@@ -37,19 +36,19 @@ def check(email, pwd):
             paswd_ok = False
             break
         
-        elif not re.search("[a-z]", pwd):
+        elif not search("[a-z]", pwd):
             paswd_ok = False
             break
 
-        elif not re.search("[A-Z]", pwd):
+        elif not search("[A-Z]", pwd):
             paswd_ok = False
             break
 
-        elif not re.search("[0-9]", pwd):
+        elif not search("[0-9]", pwd):
             paswd_ok = False
             break
         
-        elif re.search("%{,}$[;/]\s", pwd):
+        elif search("%{,}$[;/]\s", pwd):
             paswd_ok = False
             break
 
@@ -64,12 +63,11 @@ def check_mail(email):
 
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 
-    if re.fullmatch(regex,email):
+    if fullmatch(regex,email):
         return True
     else:
         return False
-
-    
+ 
 def check_userID(userid):
     try:
         auth.get_user(uid=userid)
@@ -98,7 +96,7 @@ def create_user(user_id,email,paswd, confirm_paswd, disp_name):
 def login(user_id, paswd):
     try:
         user_details = auth.get_user(user_id)
-    except firebase_admin._auth_utils.UserNotFoundError:
+    except _auth_utils.UserNotFoundError:
         return 1
     except:
         return 3
@@ -128,8 +126,6 @@ def forgot_paswd(user_email):
     except:
         return 1
 
-
-
 # Add Transaction------------------------------------------------------------------------
 def add_trans(user_id, td):
     n = ref.child(f"{user_id}").get()
@@ -137,12 +133,6 @@ def add_trans(user_id, td):
     p +=1
     ref.child(f"{user_id}").child("Transaction").child(f"{p}").set(td)
     ref.child(f"{user_id}").update({"Number of Transactions":p})
-
-
-# create_db(user_id="chris", disp_name="Chris Evans", setting_data=database.sd)
-# add_trans(user_id="chris",td= database.td)
-
-# print(create_user(user_id="chris",email="chris1@mail.com",paswd="11223344",confirm_paswd="11223344", disp_name="Chris"))
 
 def get_display_name(uid):
     details = auth.get_user(uid)
