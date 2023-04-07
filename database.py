@@ -56,4 +56,3 @@ def display_date():
 
     disp_var = f"{date_dis.day} {month}"
     return disp_var
-print(display_date())

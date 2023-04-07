@@ -1,0 +1,165 @@
+<Card>
+    orientation: 'vertical'
+    radius: 12
+    padding: '8dp'
+    size_hint: None, None
+    size: "180dp", "170dp"
+    ripple_behavior: True
+    Image:
+        source: root.source
+    MDLabel:
+        text: root.text
+        halign: 'center'
+        font_size: '13sp'
+        adaptive_height: True
+        font_name: 'assets/Poppins-Medium'
+MDScreen:
+    name: 'home2'
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDFloatLayout:
+                    orientation: 'vertical'
+                    FitImage:
+                        source: 'assets/bg.jpg'
+                    MDIconButton:
+                        icon: "assets/menu.png"
+                        md_bg_color: 'white'
+                        pos_hint: {'center_x': .90,'center_y':.95}
+                        on_release:nav_drawer.set_state('toggle')
+                    MDLabel:
+                        text: 'Good Morning,'
+                        font_name: 'assets/Poppins-Medium'
+                        font_size: '17sp'
+                        pos_hint: {'center_y': 0.95}
+                        padding_x: "24dp"
+                        adaptive_height: True
+                    MDLabel:
+                        text: "Hevardhan "
+                        id: name
+                        font_name: 'assets/Poppins-Medium'
+                        font_size: '27sp'
+                        pos_hint: {'center_y': 0.91}
+                        padding_x: "24dp"
+                        adaptive_height: True
+                    MDGridLayout:
+                        size_hint_y: None
+                        size_hint_x: None
+                        height: 2*(root.width/3)
+                        width: root.width
+                        rows:1
+                        cols:1
+                        spacing: "18dp"
+                        padding: "24dp"
+                        pos_hint: {'center_y':.65}
+                        MDCard:
+                            elevation: 3
+                            radius: 30
+                            md_bg_color: "#010729"
+                            MDRelativeLayout:
+                                Image:
+                                    source:"assets/visa2.png"
+                                    pos_hint:{'center_y': .85,'center_x':.825}
+                                Image:
+                                    source:"assets/chip2.png"
+                                    pos_hint:{'center_y': .5,'center_x':.875}
+                                MDIcon:
+                                    icon:"currency-rupee"
+                                    pos_hint:{'center_y':.65}
+                                    padding_x: 20
+                                    font_size: '25sp'
+                                    color: "white"
+                                MDLabel:
+                                    text: '200000'
+                                    id: balance
+                                    color: "white"
+                                    font_name: 'assets/Poppins-Medium'
+                                    font_size: '25sp'
+                                    pos_hint:{'center_y': .65}
+                                    adaptive_height: True
+                                    padding_x: 50
+                                MDLabel:
+                                    text: 'Balance'
+                                    font_name: 'assets/Poppins-Medium'
+                                    font_size: '12sp'
+                                    pos_hint:{'center_y': .85}
+                                    adaptive_height: True
+                                    padding_x: 25
+                                    color: "grey"
+                                MDLabel:
+                                    text: '**** **** **** 1 0 1 0'
+                                    font_name: 'assets/Techfont'
+                                    font_size: '15sp'
+                                    pos_hint:{'center_y': .425}
+                                    adaptive_height: True
+                                    padding_x: 25
+                                    color: "white"
+                                MDLabel:
+                                    text: 'Spend'
+                                    font_name: 'assets/Poppins-Medium'
+                                    font_size: '12sp'
+                                    pos_hint:{'center_y': .3}
+                                    adaptive_height: True
+                                    padding_x: 25
+                                    color: "grey"
+                                MDIcon:
+                                    icon:"currency-rupee"
+                                    pos_hint:{'center_y':.15}
+                                    padding_x: 25
+                                    font_size: '12sp'
+                                    color: "white"
+                                MDLabel:
+                                    text: '200000'
+                                    id: balance
+                                    color: "white"
+                                    font_name: 'assets/Poppins-Medium'
+                                    font_size: '12sp'
+                                    pos_hint:{'center_y': .15}
+                                    adaptive_height: True
+                                    padding_x: 40
+                    MDLabel:
+                        text: "Activities :"
+                        font_name: 'assets/Poppins-Medium'
+                        font_size: '20sp'
+                        pos_hint: {'center_y': 0.4}
+                        adaptive_height: True  
+                        padding_x: "24dp"      
+                    ScrollView:
+                        size_hint: None,None
+                        size: root.width, 200        
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        pos_hint: {'center_y': 0.2}
+                        MDGridLayout:
+                            size_hint_x: None
+                            width: self.minimum_width
+                            spacing: 10
+                            padding: 10
+                            rows: 1
+                            Card:
+                                source: 'assets/btn.png'
+                                text: 'Daily Expenses'
+                                on_release: app.btn1()
+                            Card:
+                                source: 'assets/btn21.png'
+                                text: 'Balance and History'
+                            Card:
+                                source: 'assets/btn31.png'
+                                text: 'Reports'
+                            Card:
+                                source: 'assets/btn4.png'
+                                text: 'More'
+                    MDFloatingActionButtonSpeedDial:
+                        icon:"plus"
+                        data: app.speed_dial
+                        root_button_anim: True
+                        label_text_color: "black"
+                        bg_color_root_button: rgba(52,0,231,255)
+                        label_bg_color: "#ADD8E6"
+                        label_radius: [10,10,10,10]
+        MDNavigationDrawer:
+            id: nav_drawer
+            anchor: 'right'
+            radius: [30,0,0,30]
+            ContentNavigationDrawer:    
+            
