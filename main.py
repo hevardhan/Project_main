@@ -15,11 +15,13 @@ class Card(MDCard):
 class ContentNavigationDrawer(BoxLayout):
     pass
 
+Window.size = (400,600)
 
 
 class BudgetBuddy(MDApp):
     
     global sm
+
     
     sm = ScreenManager()
     def build(self):
@@ -27,9 +29,12 @@ class BudgetBuddy(MDApp):
         self.theme_cls.primary_hue = "500"
         self.theme_cls.accent_palette = "Gray"
         self.USERNAME = " "
-        
-        sm.add_widget(Builder.load_file("kv/startup.kv"))
-        sm.add_widget(Builder.load_file("kv/home2.kv"))
+        self.speed_dial = {
+            "Add Expense" : ["plus","on_release", lambda x: BudgetBuddy.add_expense(self)],
+            "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
+        }
+        # sm.add_widget(Builder.load_file("kv/startup.kv"))
+        sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
         sm.add_widget(Builder.load_file("kv/login.kv"))
         sm.add_widget(Builder.load_file("kv/signup.kv"))
@@ -51,7 +56,7 @@ class BudgetBuddy(MDApp):
         sm.transition.direction = 'left'
 
 #        
-    def profile(self):
+    def profile(self):      
         sm.current= "profile"
         sm.transition.direction = "left"
     def home(self):
@@ -110,7 +115,8 @@ class BudgetBuddy(MDApp):
     def forgot(self):
         sm.current = 'forgot-pass'
         sm.transition.direction = "left"
-
-
-            
+    def add_expense(self):
+        self.root.get_screen('home2').ids.balance.text="11,000"
+    def add_income(self):
+        self.root.get_screen('home2').ids.balance.text="21,000"            
 BudgetBuddy().run()
