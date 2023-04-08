@@ -3,7 +3,7 @@ from re import search, fullmatch
 from firebase_admin import credentials
 from firebase_admin import initialize_app as f_admin_init
 from firebase_admin import db, auth, _auth_utils
-import database
+from database import td
 
 # Firebase Configurationcand Credentials---------------------------------------------------------------
 firebaseConfig = {
@@ -20,7 +20,7 @@ firebaseConfig = {
 cred = credentials.Certificate('budget-buddy-key.json')
 
 # Initializing Firebase------------------------------------------------------------------
-f_admin_init(cred, {"databaseURL": "https://budget-buddy-11-default-rtdb.firebaseio.com"}  )
+f_admin_init(cred, {"databaseURL": "https://budget-buddy-11-default-rtdb.firebaseio.com"})
 
 
 firebase = p_init(firebaseConfig)
@@ -68,15 +68,20 @@ def check_mail(email):
     else:
         return False
  
+# Check User ID 
 def check_userID(userid):
-    try:
-        auth.get_user(uid=userid)
-        return False
-    except auth.UserNotFoundError:
-        return True
+    if userid.islower() == True:
+        try:
+            auth.get_user(uid=userid)
+            return 1
+        except auth.UserNotFoundError:
+            return 0
+    else:
+        return 2    
+
 #Create User---------------------------------------------------------------------------------
 def create_user(user_id,email,paswd, confirm_paswd, disp_name):
-    if check_userID(userid=user_id) == True:
+    if check_userID(userid=user_id) == 0:
         if check(email,paswd) == True:
             if paswd == confirm_paswd:
                 try:
@@ -109,7 +114,6 @@ def login(user_id, paswd):
             return 2
 
 # Create Database-----------------------------------------------------------------------
-# datab = firebase.database()
 ref = db.reference("Userdata")
 def create_db(user_id, disp_name):
     ref.child(f"{user_id}").set({"Name": f"{disp_name}","Number of Transactions":0})
@@ -126,16 +130,30 @@ def forgot_paswd(user_email):
     except:
         return 1
 
-# Add Transaction------------------------------------------------------------------------
-def add_trans(user_id, td):
+# Add Income------------------------------------------------------------------------
+def add_income(user_id, td):
     n = ref.child(f"{user_id}").get()
     p = n['Number of Transactions']
     p +=1
-    ref.child(f"{user_id}").child("Transaction").child(f"{p}").set(td)
+    ref.child(f"{user_id}").child("Transaction").child("Income").child(f"{p}").set(td)
     ref.child(f"{user_id}").update({"Number of Transactions":p})
 
+# add_income("Heva", td=td)
+# Add Expense ------------------------------------------------------------------------
+def add_expense(user_id, td):
+    n = ref.child(f"{user_id}").get()
+    p = n['Number of Transactions']
+    p +=1
+    ref.child(f"{user_id}").child("Transaction").child("Expense").child(f"{p}").set(td)
+    ref.child(f"{user_id}").update({"Number of Transactions":p})
+    
+def balance(user_id):
+    exp_details = ref.child(f"{user_id}").child("Transaction").child('Expense').order_by_key().get()
+    inc_details = ref.child(f"{user_id}").child("Transaction").order_by_child("Income").get()
+    print(exp_details)
+    print(inc_details)
+
+# Getting Display Name ------------------------------------------------------------------
 def get_display_name(uid):
     details = auth.get_user(uid)
     return details.display_name
-
-
