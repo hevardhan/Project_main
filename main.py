@@ -7,7 +7,9 @@ from kivymd.uix.card import MDCard
 from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 import fire 
-
+from kivy.core.text import LabelBase
+LabelBase.register(name='abode',
+                   fn_regular='assets/abode.ttf')
 class Card(MDCard):
     source = StringProperty()
     text = StringProperty()
@@ -33,7 +35,8 @@ class BudgetBuddy(MDApp):
             "Add Expense" : ["plus","on_release", lambda x: BudgetBuddy.add_expense(self)],
             "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
         }
-        # sm.add_widget(Builder.load_file("kv/startup.kv"))
+        sm.add_widget(Builder.load_file("kv/dialog.kv"))
+        sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
         sm.add_widget(Builder.load_file("kv/login.kv"))

@@ -35,7 +35,7 @@ MDScreen:
                         padding_x: "24dp"
                         adaptive_height: True
                     MDLabel:
-                        text: "Hevardhan "
+                        text: " "
                         id: name
                         font_name: 'assets/Poppins-Medium'
                         font_size: '27sp'
@@ -71,7 +71,6 @@ MDScreen:
                                     color: "white"
                                 MDLabel:
                                     text: '200000'
-                                    id: balance
                                     color: "white"
                                     font_name: 'assets/Poppins-Medium'
                                     font_size: '25sp'
@@ -154,6 +153,7 @@ MDScreen:
                         data: app.speed_dial
                         root_button_anim: True
                         label_text_color: "black"
+                        anchor: "right"
                         bg_color_root_button: rgba(52,0,231,255)
                         label_bg_color: "#ADD8E6"
                         label_radius: [10,10,10,10]
@@ -161,5 +161,8 @@ MDScreen:
             id: nav_drawer
             anchor: 'right'
             radius: [30,0,0,30]
-            ContentNavigationDrawer:    
-            
+            MDNavigationDrawerMenu:    
+                MDLabel:
+                    text: "budget buddy"
+                    font_name: "assets/abode"
+                    font_size: "25dp"
