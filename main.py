@@ -8,6 +8,10 @@ from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 import fire 
 from kivy.core.text import LabelBase
+from kivymd.uix.pickers import MDDatePicker
+from database import display_date
+
+
 LabelBase.register(name='abode',
                    fn_regular='assets/abode.ttf')
 class Card(MDCard):
@@ -35,7 +39,7 @@ class BudgetBuddy(MDApp):
             "Add Expense" : ["plus","on_release", lambda x: BudgetBuddy.add_expense(self)],
             "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
         }
-        sm.add_widget(Builder.load_file("kv/dialog.kv"))
+        
         sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
@@ -43,6 +47,7 @@ class BudgetBuddy(MDApp):
         sm.add_widget(Builder.load_file("kv/signup.kv"))
         sm.add_widget(Builder.load_file('kv/btn1.kv'))
         sm.add_widget(Builder.load_file("kv/forgot.kv"))
+        sm.add_widget(Builder.load_file("kv/expense.kv"))
 
         return sm
    
@@ -57,8 +62,6 @@ class BudgetBuddy(MDApp):
     def btn1(self):
         sm.current= 'btn1'
         sm.transition.direction = 'left'
-
-#        
     def profile(self):      
         sm.current= "profile"
         sm.transition.direction = "left"
@@ -120,8 +123,17 @@ class BudgetBuddy(MDApp):
         sm.transition.direction = "left"
 
     def add_expense(self):
-        self.root.get_screen('home2').ids.balance.text="11,000"
+        sm.current = 'expense'
+        sm.transition.direction = "left"
 
     def add_income(self):
-        self.root.get_screen('home2').ids.balance.text="21,000"            
+        self.root.get_screen('home2').ids.balance.text="21,000"    
+    
+    def on_save(self,instance,value,date_range):
+        a = display_date(value)
+        self.root.get_screen('expense').ids.date_disp.text= a
+    def show_date_picker(self):
+        date_dialog = MDDatePicker(font_name="assets/Poppins-Medium")  
+        date_dialog.bind(on_save=self.on_save)
+        date_dialog.open()      
 BudgetBuddy().run()

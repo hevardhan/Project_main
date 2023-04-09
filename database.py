@@ -24,8 +24,8 @@ td = {
     "Transaction Method":f"{method}"
 }
 
-def display_date():
-    date_dis = date.today()
+def display_date(get_date):
+    date_dis = get_date
     if date_dis.month == 1:
         month = "Jan"
     elif date_dis.month == 2:
@@ -53,5 +53,5 @@ def display_date():
     else:
         raise Exception("Error While Getting Date")
 
-    disp_var = f"{date_dis.day} {month}"
+    disp_var = f"{date_dis.day} {month} {date_dis.year}"
     return disp_var

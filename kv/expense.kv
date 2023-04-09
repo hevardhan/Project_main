@@ -1,0 +1,79 @@
+MDScreen:
+    name: 'expense'
+    MDFloatLayout:
+        FitImage:
+            source: 'assets/bg3.jpg'
+        MDIconButton:
+            icon: 'keyboard-backspace'
+            on_release: app.home()
+            pos_hint: {'center_y': .95,'center_x':.1}
+            font_size: "50dp"
+        MDLabel:
+            text: 'Add Expense'
+            pos_hint: {'center_y': .8,'center_x': .5}
+            font_name: 'assets/Poppins-Medium'
+            font_size: "30dp"
+            halign: "center"
+        MDGridLayout:
+            size_hint_y: None
+            size_hint_x: None
+            height: 2*(root.height/3)
+            width: root.width
+            rows:1
+            cols:1
+            MDCard:
+                radius: [30,30,0,0]
+                MDRelativeLayout:
+                    MDLabel:
+                        text: 'Amount :'
+                        pos_hint: {'center_y': .8}
+                        padding_x: 30
+                        font_name: 'assets/Poppins-Medium'
+                    MDTextField:
+                        pos_hint: {'center_x': .5, 'center_y': .72}
+                        text_color_focus: rgba(0,0,59,255)
+                        font_name: "assets/Poppins-Medium"
+                        font_size: "20sp"
+                        size_hint_x: 0.8
+                        anchor: "left"
+                        color_mode: 'custom'
+                        line_color_focus: rgba(0,0,59,255)
+                        hint_text_color_focus: rgba(0,0,59,255)
+                        multiline: False
+                        input_filter: 'int'
+                    MDLabel:
+                        text: 'Description :'
+                        pos_hint: {'center_y': .55}
+                        padding_x: 30
+                        font_name: 'assets/Poppins-Medium'
+                    MDTextField:
+                        pos_hint: {'center_x': .5, 'center_y': .47}
+                        text_color_focus: rgba(0,0,59,255)
+                        font_name: "assets/Poppins-Medium"
+                        font_size: "17sp"
+                        size_hint_x: 0.8
+                        anchor: "left"
+                        color_mode: 'custom'
+                        line_color_focus: rgba(0,0,59,255)
+                        hint_text_color_focus: rgba(0,0,59,255)
+                        multiline: False
+                        max_text_length: 50
+                    MDLabel:
+                        text: "Select Date :"
+                        font_name: 'assets/Poppins-Medium'
+                        pos_hint:{'center_y':.3}
+                        padding_x: 30
+                    MDFlatButton:
+                        id: date_disp
+                        text: 'dd-mm-yyyy'
+                        text_color_focus: rgba(0,0,59,255)
+                        font_name: "assets/Poppins-Medium"
+                        font_size: "15sp"
+                        pos_hint:{'center_x':.8,'center_y':.3}
+                        on_release: app.show_date_picker()
+                    MDRaisedButton:
+                        text: "Done"
+                        pos_hint: {'center_x': 0.5,'center_y': 0.12}
+                        md_bg_color: rgba(52,0,231,255)
+                        font_name: "assets/Poppins-Bold"
+                        increment_width: "164dp"

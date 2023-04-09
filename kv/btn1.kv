@@ -1,4 +1,5 @@
 #:import dt database
+#:import date.today datetime
 MDScreen:
     name: 'btn1'
     MDFloatLayout:
@@ -27,7 +28,7 @@ MDScreen:
                 icon: 'calendar'
                 pos_hint:{'center_x':.1,'center_y':.9}
             MDLabel:
-                text: dt.display_date()
+                text: dt.display_date(date.today())
                 font_name: 'assets/Poppins-Medium'
                 pos_hint:{'center_x':.7,'center_y':.9}
             MDIconButton:
