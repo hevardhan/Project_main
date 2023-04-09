@@ -4,7 +4,7 @@ from datetime import datetime,date
 max_lim = 1000
 income = 10000 
 rent = 2000
-descrp = "grocery"
+descrp = "Salary"
 transac_type = "Debit"
 amount = 500
 method = "Gpay"
@@ -20,8 +20,7 @@ td = {
     "Date": f"{date.today()}",
     "Time": f"{time_now}",
     "Description": f"{descrp}",
-    "Credit or Debit": f"{transac_type}",
-    "Amount": f"{amount}",
+    "Amount": f"{income}",
     "Transaction Method":f"{method}"
 }
 

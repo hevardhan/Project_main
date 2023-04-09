@@ -118,8 +118,10 @@ class BudgetBuddy(MDApp):
     def forgot(self):
         sm.current = 'forgot-pass'
         sm.transition.direction = "left"
+
     def add_expense(self):
         self.root.get_screen('home2').ids.balance.text="11,000"
+
     def add_income(self):
         self.root.get_screen('home2').ids.balance.text="21,000"            
 BudgetBuddy().run()
