@@ -138,7 +138,6 @@ def add_income(user_id, td):
     ref.child(f"{user_id}").child("Transaction").child("Income").child(f"{p}").set(td)
     ref.child(f"{user_id}").update({"Number of Transactions":p})
 
-# add_income("Heva", td=td)
 # Add Expense ------------------------------------------------------------------------
 def add_expense(user_id, td):
     n = ref.child(f"{user_id}").get()
@@ -146,12 +145,19 @@ def add_expense(user_id, td):
     p +=1
     ref.child(f"{user_id}").child("Transaction").child("Expense").child(f"{p}").set(td)
     ref.child(f"{user_id}").update({"Number of Transactions":p})
-    
+
+# Getting Balance ---------------------------------------------------------------------- 
 def balance(user_id):
-    exp_details = ref.child(f"{user_id}").child("Transaction").child('Expense').order_by_key().get()
-    inc_details = ref.child(f"{user_id}").child("Transaction").order_by_child("Income").get()
-    print(exp_details)
-    print(inc_details)
+    inc_ref = db.reference(f'Userdata/{user_id}/Transaction/Income')
+    exp_ref = db.reference(f'Userdata/{user_id}/Transaction/Expense')
+    exp_details = exp_ref.order_by_key().get()
+    inc_details = inc_ref.order_by_key().get()
+
+    total_inc = sum([inc_details[key]['Amount'] for key in inc_details ])
+    total_exp = sum([exp_details[key]['Amount'] for key in exp_details ]) 
+    
+    return total_inc-total_exp
+
 
 # Getting Display Name ------------------------------------------------------------------
 def get_display_name(uid):
