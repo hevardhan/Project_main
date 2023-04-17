@@ -134,7 +134,6 @@ class BudgetBuddy(MDApp):
         date = self.root.get_screen('expense').ids.date_disp.text
         t_data = {
             "Date": f"{date}",
-            "Time": f"{datetime.time.now()}",
             "Description": f"{descp}",
             "Amount": f"{amount}"
         }

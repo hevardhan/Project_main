@@ -3,7 +3,6 @@ from re import search, fullmatch
 from firebase_admin import credentials
 from firebase_admin import initialize_app as f_admin_init
 from firebase_admin import db, auth, _auth_utils
-from database import td
 
 # Firebase Configurationcand Credentials---------------------------------------------------------------
 firebaseConfig = {
