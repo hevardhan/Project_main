@@ -1,5 +1,5 @@
 MDScreen:
-    name: 'expense'
+    name: 'income'
     MDFloatLayout:
         FitImage:
             source: 'assets/bg3.jpg'
@@ -9,7 +9,7 @@ MDScreen:
             pos_hint: {'center_y': .95,'center_x':.1}
             font_size: "50dp"
         MDLabel:
-            text: 'Add Expense'
+            text: 'Add Income'
             pos_hint: {'center_y': .8,'center_x': .5}
             font_name: 'assets/Poppins-Medium'
             font_size: "30dp"
@@ -88,8 +88,7 @@ MDScreen:
                         font_name: "assets/Poppins-Medium"
                         font_size: "15sp"
                         pos_hint:{'center_x':.8,'center_y':.3}
-                        md_bg_color: "grey"
-                        on_release: app.show_date_picker_expense()
+                        on_release: app.show_date_picker_income()
                     MDRaisedButton:
                         text: "Done"
                         pos_hint: {'center_x': 0.5,'center_y': 0.12}

@@ -50,6 +50,7 @@ class BudgetBuddy(MDApp):
         sm.add_widget(Builder.load_file('kv/btn1.kv'))
         sm.add_widget(Builder.load_file("kv/forgot.kv"))
         sm.add_widget(Builder.load_file("kv/expense.kv"))
+        sm.add_widget(Builder.load_file("kv/income.kv"))
         
         return sm
    
@@ -129,13 +130,22 @@ class BudgetBuddy(MDApp):
         sm.transition.direction = "left"
 
     def add_income(self):
-        self.root.get_screen('home2').ids.balance.text="21,000"    
+        sm.current = 'income'
+        sm.transition.direction = "left"
+        
+    def on_save_income(self,instance,value,date_range):
+        a = display_date(value)
+        self.root.get_screen('income').ids.date_disp.text= a
+    def show_date_picker_income(self):
+        date_dialog = MDDatePicker(font_name="assets/Poppins-Medium")  
+        date_dialog.bind(on_save=self.on_save_income)
+        date_dialog.open()  
     
-    def on_save(self,instance,value,date_range):
+    def on_save_expense(self,instance,value,date_range):
         a = display_date(value)
         self.root.get_screen('expense').ids.date_disp.text= a
-    def show_date_picker(self):
+    def show_date_picker_expense(self):
         date_dialog = MDDatePicker(font_name="assets/Poppins-Medium")  
-        date_dialog.bind(on_save=self.on_save)
+        date_dialog.bind(on_save=self.on_save_expense)
         date_dialog.open()      
 BudgetBuddy().run()
