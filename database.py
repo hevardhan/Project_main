@@ -16,13 +16,15 @@ sd = {
 }
 
 time_now = datetime.now().strftime("%H:%M:%S")
-td = {
+
+def tran_data():    
+    td = {
     "Date": f"{date.today()}",
     "Time": f"{time_now}",
     "Description": f"{descrp}",
     "Amount": f"{income}",
     "Transaction Method":f"{method}"
-}
+    }
 
 def display_date(get_date):
     date_dis = get_date

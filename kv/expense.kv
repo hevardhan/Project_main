@@ -30,6 +30,7 @@ MDScreen:
                         padding_x: 30
                         font_name: 'assets/Poppins-Medium'
                     MDTextField:
+                        id: amount
                         pos_hint: {'center_x': .5, 'center_y': .82}
                         text_color_focus: rgba(0,0,59,255)
                         font_name: "assets/Poppins-Medium"
@@ -48,6 +49,7 @@ MDScreen:
                         padding_x: 30
                         font_name: 'assets/Poppins-Medium'
                     MDTextField:
+                        id: descp
                         pos_hint: {'center_x': .5, 'center_y': .6}
                         text_color_focus: rgba(0,0,59,255)
                         font_name: "assets/Poppins-Medium"
@@ -96,3 +98,4 @@ MDScreen:
                         md_bg_color: rgba(52,0,231,255)
                         font_name: "assets/Poppins-Bold"
                         increment_width: "164dp"
+                        on_release: app.add_expense()

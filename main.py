@@ -10,6 +10,7 @@ import fire
 from kivy.core.text import LabelBase
 from kivymd.uix.pickers import MDDatePicker
 from database import display_date
+from datetime import datetime
 
 Window.keyboard_anim_args = {'d': .2, 't': 'in_out_expo'}
 Window.softinput_mode = "below_target"
@@ -128,6 +129,16 @@ class BudgetBuddy(MDApp):
     def add_expense(self):
         sm.current = 'expense'
         sm.transition.direction = "left"
+        amount = self.root.get_screen('expense').ids.amount.text
+        descp = self.root.get_screen('expense').ids.descp.text
+        date = self.root.get_screen('expense').ids.date_disp.text
+        t_data = {
+            "Date": f"{date}",
+            "Time": f"{datetime.time.now()}",
+            "Description": f"{descp}",
+            "Amount": f"{amount}"
+        }
+        fire.add_expense(self.USERNAME, td=t_data)
 
     def add_income(self):
         sm.current = 'income'
