@@ -117,6 +117,7 @@ ref = db.reference("Userdata")
 def create_db(user_id, disp_name):
     ref.child(f"{user_id}").set({"Name": f"{disp_name}","Number of Transactions":0})
 
+# Settings Data--------------------------------------------------------------------------
 def add_setting_data(user_id, setting_data):    
     ref.child(f"{user_id}").child("Settings_data").set(setting_data)
 
