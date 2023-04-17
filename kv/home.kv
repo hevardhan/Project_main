@@ -10,7 +10,7 @@
     MDLabel:
         text: root.text
         halign: 'center'
-        font_size: '13sp'
+        font_size: '13dp'
         adaptive_height: True
         font_name: 'assets/Poppins-Medium'
 MDScreen:
@@ -45,7 +45,7 @@ MDScreen:
                     MDGridLayout:
                         size_hint_y: None
                         size_hint_x: None
-                        height: 2*(root.width/3)
+                        height: 2*(root.height/5)
                         width: root.width
                         rows:1
                         cols:1
@@ -67,20 +67,20 @@ MDScreen:
                                     icon:"currency-rupee"
                                     pos_hint:{'center_y':.65}
                                     padding_x: 20
-                                    font_size: '25sp'
+                                    font_size: '25dp'
                                     color: "white"
                                 MDLabel:
                                     text: '200000'
                                     color: "white"
                                     font_name: 'assets/Poppins-Medium'
-                                    font_size: '25sp'
+                                    font_size: '25dp'
                                     pos_hint:{'center_y': .65}
                                     adaptive_height: True
                                     padding_x: 50
                                 MDLabel:
                                     text: 'Balance'
                                     font_name: 'assets/Poppins-Medium'
-                                    font_size: '12sp'
+                                    font_size: '12dp'
                                     pos_hint:{'center_y': .85}
                                     adaptive_height: True
                                     padding_x: 25
@@ -88,7 +88,7 @@ MDScreen:
                                 MDLabel:
                                     text: '**** **** **** 1 0 1 0'
                                     font_name: 'assets/Techfont'
-                                    font_size: '15sp'
+                                    font_size: '15dp'
                                     pos_hint:{'center_y': .425}
                                     adaptive_height: True
                                     padding_x: 25
@@ -96,7 +96,7 @@ MDScreen:
                                 MDLabel:
                                     text: 'Spend'
                                     font_name: 'assets/Poppins-Medium'
-                                    font_size: '12sp'
+                                    font_size: '12dp'
                                     pos_hint:{'center_y': .3}
                                     adaptive_height: True
                                     padding_x: 25
@@ -105,24 +105,24 @@ MDScreen:
                                     icon:"currency-rupee"
                                     pos_hint:{'center_y':.15}
                                     padding_x: 25
-                                    font_size: '12sp'
+                                    font_size: '12dp'
                                     color: "white"
                                 MDLabel:
                                     text: '200000'
                                     id: balance
                                     color: "white"
                                     font_name: 'assets/Poppins-Medium'
-                                    font_size: '12sp'
+                                    font_size: '12dp'
                                     pos_hint:{'center_y': .15}
                                     adaptive_height: True
                                     padding_x: 40
                     MDLabel:
                         text: "Activities :"
                         font_name: 'assets/Poppins-Medium'
-                        font_size: '20sp'
+                        font_size: '20dp'
                         pos_hint: {'center_y': 0.4}
                         adaptive_height: True  
-                        padding_x: "24dp"      
+                        padding_x: "24sp"      
                     ScrollView:
                         size_hint: None,None
                         size: root.width, 200        
@@ -153,9 +153,9 @@ MDScreen:
                         data: app.speed_dial
                         root_button_anim: True
                         label_text_color: "black"
-                        anchor: "right"
                         bg_color_root_button: rgba(52,0,231,255)
                         label_bg_color: "#ADD8E6"
+                        anchor: 'right'
                         label_radius: [10,10,10,10]
         MDNavigationDrawer:
             id: nav_drawer
