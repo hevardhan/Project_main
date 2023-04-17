@@ -12,6 +12,9 @@ from kivymd.uix.pickers import MDDatePicker
 from database import display_date
 from datetime import datetime
 
+Window.keyboard_anim_args = {'d': .2, 't': 'in_out_expo'}
+Window.softinput_mode = "below_target"
+
 
 LabelBase.register(name='abode',
                    fn_regular='assets/abode.ttf')
@@ -22,7 +25,6 @@ class Card(MDCard):
 class ContentNavigationDrawer(BoxLayout):
     pass
 
-Window.size = (400,600)
 
 
 class BudgetBuddy(MDApp):
@@ -40,8 +42,8 @@ class BudgetBuddy(MDApp):
             "Add Expense" : ["plus","on_release", lambda x: BudgetBuddy.add_expense(self)],
             "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
         }
-        
-        sm.add_widget(Builder.load_file("kv/startup.kv"))
+
+        # sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
         sm.add_widget(Builder.load_file("kv/login.kv"))
@@ -49,7 +51,7 @@ class BudgetBuddy(MDApp):
         sm.add_widget(Builder.load_file('kv/btn1.kv'))
         sm.add_widget(Builder.load_file("kv/forgot.kv"))
         sm.add_widget(Builder.load_file("kv/expense.kv"))
-
+        
         return sm
    
         
@@ -68,8 +70,8 @@ class BudgetBuddy(MDApp):
         sm.transition.direction = "left"
     def home(self):
         sm.current = "home2"
-        sm.transition.direction = "right"
         self.root.get_screen('home2').ids.name.text = self.USERNAME
+        sm.transition.direction = "right"
     def login(self):
         sm.current = "login"
         sm.transition.direction = "left"

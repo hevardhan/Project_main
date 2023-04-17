@@ -26,12 +26,12 @@ MDScreen:
                 MDRelativeLayout:
                     MDLabel:
                         text: 'Amount :'
-                        pos_hint: {'center_y': .8}
+                        pos_hint: {'center_y': .9}
                         padding_x: 30
                         font_name: 'assets/Poppins-Medium'
                     MDTextField:
                         id: amount
-                        pos_hint: {'center_x': .5, 'center_y': .72}
+                        pos_hint: {'center_x': .5, 'center_y': .82}
                         text_color_focus: rgba(0,0,59,255)
                         font_name: "assets/Poppins-Medium"
                         font_size: "20sp"
@@ -42,14 +42,15 @@ MDScreen:
                         hint_text_color_focus: rgba(0,0,59,255)
                         multiline: False
                         input_filter: 'int'
+                        input_type: 'number'
                     MDLabel:
                         text: 'Description :'
-                        pos_hint: {'center_y': .55}
+                        pos_hint: {'center_y': .675}
                         padding_x: 30
                         font_name: 'assets/Poppins-Medium'
                     MDTextField:
                         id: descp
-                        pos_hint: {'center_x': .5, 'center_y': .47}
+                        pos_hint: {'center_x': .5, 'center_y': .6}
                         text_color_focus: rgba(0,0,59,255)
                         font_name: "assets/Poppins-Medium"
                         font_size: "17sp"
@@ -60,6 +61,23 @@ MDScreen:
                         hint_text_color_focus: rgba(0,0,59,255)
                         multiline: False
                         max_text_length: 50
+                    MDLabel:
+                        text: "Categories :"
+                        font_name: 'assets/Poppins-Medium'
+                        pos_hint:{'center_y':.5}
+                        padding_x: 30
+                    MDLabel:
+                        text: "Select Category"
+                        pos_hint:{'center_y':.4}
+                        padding_x: 30
+                        halign: "left"    
+                        font_name: 'assets/Poppins-Medium'
+                        font_size: "15dp"
+                        text_color: "black"
+                    # MDFloatLayout:
+                    #     md_bg_color: rgba(178,178,178,255)   
+                    #     size_hint: .4, .002
+                    #     pos_hint: {'center_x':.630,'center_y':.38}
                     MDLabel:
                         text: "Select Date :"
                         font_name: 'assets/Poppins-Medium'
