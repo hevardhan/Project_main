@@ -86,11 +86,11 @@ MDScreen:
                     MDRaisedButton:
                         id: date_disp
                         text: 'dd-mm-yyyy'
-                        text_color_focus: rgba(0,0,59,255)
+                        text_color: "black"
                         font_name: "assets/Poppins-Medium"
                         font_size: "15sp"
                         pos_hint:{'center_x':.8,'center_y':.3}
-                        md_bg_color: "#E5E4E2"
+                        md_bg_color: "#D3D3D3"
                         on_release: app.show_date_picker_expense()
                     MDRaisedButton:
                         text: "Done"
@@ -98,4 +98,4 @@ MDScreen:
                         md_bg_color: rgba(52,0,231,255)
                         font_name: "assets/Poppins-Bold"
                         increment_width: "164dp"
-                        on_release: app.add_expense()
+                        on_release: app.done_add_expense()

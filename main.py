@@ -129,15 +129,6 @@ class BudgetBuddy(MDApp):
     def add_expense(self):
         sm.current = 'expense'
         sm.transition.direction = "left"
-        amount = self.root.get_screen('expense').ids.amount.text
-        descp = self.root.get_screen('expense').ids.descp.text
-        date = self.root.get_screen('expense').ids.date_disp.text
-        t_data = {
-            "Date": f"{date}",
-            "Description": f"{descp}",
-            "Amount": f"{amount}"
-        }
-        fire.add_expense(self.USERNAME, td=t_data)
 
     def add_income(self):
         sm.current = 'income'
@@ -157,5 +148,15 @@ class BudgetBuddy(MDApp):
     def show_date_picker_expense(self):
         date_dialog = MDDatePicker(font_name="assets/Poppins-Medium")  
         date_dialog.bind(on_save=self.on_save_expense)
-        date_dialog.open()      
+        date_dialog.open()    
+    def done_add_expense(self):
+        amount = self.root.get_screen('expense').ids.amount.text
+        descp = self.root.get_screen('expense').ids.descp.text
+        date = self.root.get_screen('expense').ids.date_disp.text
+        t_data = {
+            "Date": f"{date}",
+            "Description": f"{descp}",
+            "Amount": f"{amount}"
+        }
+        fire.add_expense(self.USERNAME, td=t_data)  
 BudgetBuddy().run()
