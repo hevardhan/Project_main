@@ -10,6 +10,7 @@ import fire
 from kivy.core.text import LabelBase
 from kivymd.uix.pickers import MDDatePicker
 from database import display_date
+from datetime import datetime
 
 
 LabelBase.register(name='abode',
@@ -125,6 +126,16 @@ class BudgetBuddy(MDApp):
     def add_expense(self):
         sm.current = 'expense'
         sm.transition.direction = "left"
+        amount = self.root.get_screen('expense').ids.amount.text
+        descp = self.root.get_screen('expense').ids.descp.text
+        date = self.root.get_screen('expense').ids.date_disp.text
+        t_data = {
+            "Date": f"{date}",
+            "Time": f"{datetime.time.now()}",
+            "Description": f"{descp}",
+            "Amount": f"{amount}"
+        }
+        fire.add_expense(self.USERNAME, td=t_data)
 
     def add_income(self):
         self.root.get_screen('home2').ids.balance.text="21,000"    
@@ -132,6 +143,7 @@ class BudgetBuddy(MDApp):
     def on_save(self,instance,value,date_range):
         a = display_date(value)
         self.root.get_screen('expense').ids.date_disp.text= a
+
     def show_date_picker(self):
         date_dialog = MDDatePicker(font_name="assets/Poppins-Medium")  
         date_dialog.bind(on_save=self.on_save)
