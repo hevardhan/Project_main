@@ -11,6 +11,9 @@ from kivy.core.text import LabelBase
 from kivymd.uix.pickers import MDDatePicker
 from database import display_date
 from datetime import datetime
+from kivymd.uix.menu import MDDropdownMenu
+from kivy.utils import platform
+
 
 Window.keyboard_anim_args = {'d': .2, 't': 'in_out_expo'}
 Window.softinput_mode = "below_target"
@@ -30,9 +33,25 @@ class ContentNavigationDrawer(BoxLayout):
 class BudgetBuddy(MDApp):
     
     global sm
-
-    
     sm = ScreenManager()
+    
+    def dropdown(self):
+        self.menu_list = [
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Example 1',
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Example 1',
+            }           
+        ]
+        self.menu = MDDropdownMenu(
+            caller = self.root.get_screen('expense').ids.drop_btn,
+            items = self.menu_list,
+            width_mult = 4,
+        )
+        self.menu.open()
     def build(self):
         self.theme_cls.primary_palette = "Blue"
         self.theme_cls.primary_hue = "500"
@@ -42,7 +61,7 @@ class BudgetBuddy(MDApp):
             "Add Expense" : ["plus","on_release", lambda x: BudgetBuddy.add_expense(self)],
             "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
         }
-
+        
         # sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))

@@ -55,7 +55,6 @@ MDScreen:
                         font_name: "assets/Poppins-Medium"
                         font_size: "17sp"
                         size_hint_x: 0.8
-                        anchor: "left"
                         color_mode: 'custom'
                         line_color_focus: rgba(0,0,59,255)
                         hint_text_color_focus: rgba(0,0,59,255)
@@ -64,16 +63,29 @@ MDScreen:
                     MDLabel:
                         text: "Categories :"
                         font_name: 'assets/Poppins-Medium'
-                        pos_hint:{'center_y':.5}
+                        pos_hint:{'center_y':.45}
                         padding_x: 30
-                    MDTextField:
-                        id: category
-                        text: "Select Category"
-                        pos_hint:{'center_y':.5,"center_x":.8}
-                        halign: "left"    
-                        font_name: 'assets/Poppins-Medium'
-                        font_size: "15dp"
+                    MDRaisedButton:
+                        id: drop_btn
+                        text: "Select"
                         text_color: "black"
+                        md_bg_color: "#F5F5DC"
+                        font_name: "assets/Poppins-Medium"
+                        font_size: "15sp"
+                        pos_hint: {'center_x': .8, 'center_y': .45}
+                        on_release: app.dropdown()
+                    # MDTextField:
+                    #     id: category
+                    #     pos_hint:{'center_y':.42,"center_x":.5} 
+                    #     text_color_focus: rgba(0,0,59,255)
+                    #     font_name: "assets/Poppins-Medium"
+                    #     font_size: "17sp"
+                    #     size_hint_x: 0.8
+                    #     anchor: "left"
+                    #     color_mode: 'custom'
+                    #     line_color_focus: rgba(0,0,59,255)
+                    #     hint_text_color_focus: rgba(0,0,59,255)
+                    #     multiline: False
                     # MDFloatLayout:
                     #     md_bg_color: rgba(178,178,178,255)   
                     #     size_hint: .4, .002
@@ -81,16 +93,16 @@ MDScreen:
                     MDLabel:
                         text: "Select Date :"
                         font_name: 'assets/Poppins-Medium'
-                        pos_hint:{'center_y':.3}
+                        pos_hint:{'center_y':.28}
                         padding_x: 30
                     MDRaisedButton:
                         id: date_disp
                         text: 'dd-mm-yyyy'
                         text_color: "black"
                         font_name: "assets/Poppins-Medium"
-                        font_size: "15sp"
-                        pos_hint:{'center_x':.8,'center_y':.3}
-                        md_bg_color: "#D3D3D3"
+                        font_size: "12sp"
+                        pos_hint:{'center_x':.8,'center_y':.28}
+                        md_bg_color: "#F5F5DC"
                         on_release: app.show_date_picker_expense()
                     MDRaisedButton:
                         text: "Done"
