@@ -228,7 +228,7 @@ class BudgetBuddy(MDApp):
         category = self.root.get_screen("expense").ids.drop_btn.text
         t_data = {
             "Description": f"{descp}",
-            "Amount": f"{amount}",
+            "Amount": amount,
             "Category" : f"{category}",
             "Type" : "Expense"
         }
@@ -241,7 +241,7 @@ class BudgetBuddy(MDApp):
         date = self.root.get_screen('income').ids.date_disp.text
         t_data = {
             "Description": f"{descp}",
-            "Amount": f"{amount}",
+            "Amount": amount,
             "Type": "Income"
         }
         fire.add_expense(self.usid, td=t_data , date = date)
