@@ -104,7 +104,7 @@ class BudgetBuddy(MDApp):
             "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
         }
         
-        sm.add_widget(Builder.load_file("kv/develop.kv"))
+        
         sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
@@ -114,6 +114,7 @@ class BudgetBuddy(MDApp):
         sm.add_widget(Builder.load_file("kv/forgot.kv"))
         sm.add_widget(Builder.load_file("kv/expense.kv"))
         sm.add_widget(Builder.load_file("kv/income.kv"))
+        sm.add_widget(Builder.load_file("kv/develop.kv"))
         
         return sm
    
