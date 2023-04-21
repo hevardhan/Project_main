@@ -14,6 +14,7 @@ from datetime import datetime
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.utils import platform
 from kivy.metrics import dp, sp
+from kivymd.uix.button import MDFloatingActionButtonSpeedDial
 
 sd = {
     "Add" : ["plus"],
@@ -34,6 +35,8 @@ class Card(MDCard):
 class ContentNavigationDrawer(BoxLayout):
     pass
 
+class FB(MDFloatingActionButtonSpeedDial):
+    pass
 
 
 class BudgetBuddy(MDApp):
@@ -101,8 +104,8 @@ class BudgetBuddy(MDApp):
             "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
         }
         
-        # sm.add_widget(Builder.load_file("kv/startup.kv"))
-        # sm.add_widget(Builder.load_file("kv/login.kv"))
+        sm.add_widget(Builder.load_file("kv/startup.kv"))
+        sm.add_widget(Builder.load_file("kv/login.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
         sm.add_widget(Builder.load_file("kv/signup.kv"))

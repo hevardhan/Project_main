@@ -13,6 +13,13 @@
         font_size: '13sp'
         adaptive_height: True
         font_name: 'assets/Poppins-Medium'
+<FB>
+    anchor: 'right'
+    root_button_anim: True
+    label_text_color: "black"
+    bg_color_root_button: rgba(52,0,231,255)
+    label_bg_color: "#ADD8E6"
+    label_radius: [10,10,10,10]
 MDScreen:
     name: 'home2'
     MDNavigationLayout:
@@ -140,15 +147,10 @@ MDScreen:
                                 Card:
                                     source: 'assets/btn4.png'
                                     text: 'More'
-                    MDFloatingActionButtonSpeedDial:
+                    FB:
                         icon:"plus"
                         data: app.speed_dial
-                        root_button_anim: True
-                        label_text_color: "black"
-                        anchor: "right"
-                        bg_color_root_button: rgba(52,0,231,255)
-                        label_bg_color: "#ADD8E6"
-                        label_radius: [10,10,10,10]
+
         MDNavigationDrawer:
             id: nav_drawer
             anchor: 'right'
