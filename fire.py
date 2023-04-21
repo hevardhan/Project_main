@@ -151,7 +151,6 @@ def add_expense(user_id, td, date):
 
 
 # Getting Balance ---------------------------------------------------------------------- 
-
 def balance(user_id):
     trans_ref = db.reference(f'Userdata/{user_id}/Transaction')
     trans_details = trans_ref.order_by_key().get()
@@ -177,17 +176,18 @@ def get_display_name(uid):
     return details.display_name
 
 # History --------------------------------------------------------------------------------
-def history(user_id):
-    inc_ref = db.reference(f'Userdata/{user_id}/Transaction/Income')
-    exp_ref = db.reference(f'Userdata/{user_id}/Transaction/Expense')
-    exp_details = exp_ref.order_by_key().get()
-    inc_details = inc_ref.order_by_key().get()
+def history_per_day(user_id, date):
+    trans_ref = db.reference(f'Userdata/{user_id}/Transaction')
+    trans_details = trans_ref.order_by_key().get()
+    trans_data = []
 
-    df1 = pd.DataFrame.from_records([exp_details[key] for key in exp_details])
-    df2 = pd.DataFrame.from_records([inc_details[key] for key in inc_details])
-    
-    frames = [df1,df2]
+    for key in trans_details[date]:
+        if key.isnumeric():
+            trans_data.append(trans_details[date][key])
+            
+    df1 = pd.DataFrame.from_records(trans_data)
 
-    print(pd.concat(frames))
+    return df1
 
-balance("hevardhan")
+
+history_per_day("hevardhan", "20 Apr 2023")   
