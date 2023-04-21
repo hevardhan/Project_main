@@ -233,6 +233,7 @@ class BudgetBuddy(MDApp):
             "Type" : "Expense"
         }
         fire.add_expense(self.usid, td=t_data, date=date) 
+        BudgetBuddy.home(self)
 
     def done_add_income(self):
         amount = self.root.get_screen('income').ids.amount.text
@@ -244,6 +245,7 @@ class BudgetBuddy(MDApp):
             "Type": "Income"
         }
         fire.add_expense(self.usid, td=t_data , date = date)
+        BudgetBuddy.home(self)
         
     def on_save_btn1(self,instance,value,date_range):
         a = display_date(value)
