@@ -13,6 +13,12 @@ from database import display_date
 from datetime import datetime
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.utils import platform
+from kivy.metrics import dp, sp
+
+sd = {
+    "Add" : ["plus"],
+    "Sub" : ["account"],
+}
 
 
 Window.keyboard_anim_args = {'d': .2, 't': 'in_out_expo'}
@@ -36,15 +42,48 @@ class BudgetBuddy(MDApp):
     sm = ScreenManager()
     
     def dropdown(self):
+        
         self.menu_list = [
             {
                 "viewclass":"OneLineListItem",
-                "text":'Example 1',
+                "text":'Grocery',
+                "on_press" : lambda x=f"Grocery": self.set_item(x),
             },
             {
                 "viewclass":"OneLineListItem",
-                "text":'Example 1',
-            }           
+                "text":'Food',
+                "on_press" : lambda x=f"Food": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Clothing',
+                "on_press" : lambda x=f"Clothing": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Electricity',
+                "on_press" : lambda x=f"Electricity": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Fuel',
+                "on_press" : lambda x=f"Fuel": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Water',
+                "on_press" : lambda x=f"": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Rent',
+                "on_press" : lambda x=f"Rent": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Others',
+                "on_press" : lambda x=f"Others": self.set_item(x),
+            }
         ]
         self.menu = MDDropdownMenu(
             caller = self.root.get_screen('expense').ids.drop_btn,
@@ -63,9 +102,9 @@ class BudgetBuddy(MDApp):
         }
         
         # sm.add_widget(Builder.load_file("kv/startup.kv"))
+        # sm.add_widget(Builder.load_file("kv/login.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
-        sm.add_widget(Builder.load_file("kv/login.kv"))
         sm.add_widget(Builder.load_file("kv/signup.kv"))
         sm.add_widget(Builder.load_file('kv/btn1.kv'))
         sm.add_widget(Builder.load_file("kv/forgot.kv"))
@@ -75,8 +114,11 @@ class BudgetBuddy(MDApp):
         return sm
    
         
-#--------H O M E   P A G E ----------#         
-    
+#--------H O M E   P A G E ----------#             
+    def set_item(self, text_item):
+        self.root.get_screen("expense").ids.drop_btn.text = text_item
+        self.menu.dismiss()
+        print(self.root.get_screen("expense").ids.drop_btn.text)
 #--------Back To Home------------------------------------------       
     def back(self):
         BudgetBuddy.home(self)
@@ -91,7 +133,7 @@ class BudgetBuddy(MDApp):
     def home(self):
         sm.current = "home2"
         self.root.get_screen('home2').ids.name.text = self.USERNAME
-        sm.transition.direction = "right"
+        sm.transition.direction = "left"
     def login(self):
         sm.current = "login"
         sm.transition.direction = "left"
@@ -173,6 +215,7 @@ class BudgetBuddy(MDApp):
         amount = self.root.get_screen('expense').ids.amount.text
         descp = self.root.get_screen('expense').ids.descp.text
         date = self.root.get_screen('expense').ids.date_disp.text
+        cat = self.root.get_screen('expense').ids.drop_btn.text
         t_data = {
             "Date": f"{date}",
             "Description": f"{descp}",
