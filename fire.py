@@ -189,5 +189,15 @@ def history_per_day(user_id, date):
 
     return df1
 
+def expense_per_day(user_id, date):
+    trans_ref = db.reference(f'Userdata/{user_id}/Transaction')
+    trans_details = trans_ref.order_by_key().get()
 
-history_per_day("hevardhan", "20 Apr 2023")   
+    sum_exp = 0
+
+    for key in trans_details[date]:
+        if key.isnumeric():
+            if trans_details[date][key]['Type'] == "Expense":
+                sum_exp += trans_details[date][key]['Amount']
+
+    return sum_exp
