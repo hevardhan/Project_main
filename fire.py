@@ -3,7 +3,6 @@ from re import search, fullmatch
 from firebase_admin import credentials
 from firebase_admin import initialize_app as f_admin_init
 from firebase_admin import db, auth, _auth_utils
-import pandas as pd
 from database import display_date,date
 # Firebase Configurationcand Credentials---------------------------------------------------------------
 firebaseConfig = {
@@ -185,9 +184,8 @@ def history_per_day(user_id, date):
         if key.isnumeric():
             trans_data.append(trans_details[date][key])
             
-    df1 = pd.DataFrame.from_records(trans_data)
 
-    return df1
+    return trans_data
 
 def expense_per_day(user_id, date):
     trans_ref = db.reference(f'Userdata/{user_id}/Transaction')
