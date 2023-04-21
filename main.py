@@ -96,13 +96,14 @@ class BudgetBuddy(MDApp):
         self.theme_cls.primary_hue = "500"
         self.theme_cls.accent_palette = "Gray"
         self.USERNAME = " "
+        self.usid = ''
         self.dialog = MDDialog()
         self.speed_dial = {
             "Add Expense" : ["plus","on_release", lambda x: BudgetBuddy.add_expense(self)],
             "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
         }
 
-        # sm.add_widget(Builder.load_file("kv/startup.kv"))
+        sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
         sm.add_widget(Builder.load_file("kv/login.kv"))
@@ -153,16 +154,16 @@ class BudgetBuddy(MDApp):
             pass
 
     def sign_in(self):
-        username = self.root.get_screen("login").ids.user.text
+        self.usid = self.root.get_screen("login").ids.user.text
         passwd = self.root.get_screen("login").ids.pwd.text
         
-        if fire.login(user_id=username,paswd=passwd) == 0 :
-            self.USERNAME = fire.get_display_name(username)
+        if fire.login(user_id=self.usid,paswd=passwd) == 0 :
+            self.USERNAME = fire.get_display_name(self.usid)
             BudgetBuddy.home(self)
             
-        elif fire.login(user_id=username,paswd=passwd) == 1:
+        elif fire.login(user_id=self.usid,paswd=passwd) == 1:
             Snackbar(text="Invaild Username").open()
-        elif fire.login(user_id=username,paswd=passwd) == 3:
+        elif fire.login(user_id=self.usid,paswd=passwd) == 3:
             Snackbar(text="Unknown Error").open()        
         else:
             Snackbar(text = "Invalid Password").open()
@@ -173,10 +174,9 @@ class BudgetBuddy(MDApp):
         email_id= self.root.get_screen('sign-up').ids.email.text
         dis_name = self.root.get_screen('sign-up').ids.dname.text
         conf_pwd = self.root.get_screen('sign-up').ids.cpwd.text
-        self.USERNAME = dis_name
         check = fire.create_user(user_id=us_name,email=email_id,paswd=pswrd,confirm_paswd=conf_pwd,disp_name=dis_name)
         if check == 0:
-            BudgetBuddy.home(self)
+            BudgetBuddy.login(self)
         elif check == 4:
             Snackbar(text="Username already exists").open()
         elif check == 2 :
@@ -225,23 +225,25 @@ class BudgetBuddy(MDApp):
         amount = self.root.get_screen('expense').ids.amount.text
         descp = self.root.get_screen('expense').ids.descp.text
         date = self.root.get_screen('expense').ids.date_disp.text
+        category = self.root.get_screen("expense").ids.drop_btn.text
         t_data = {
-            "Date": f"{date}",
             "Description": f"{descp}",
-            "Amount": f"{amount}"
+            "Amount": f"{amount}",
+            "Category" : f"{category}",
+            "Type" : "Expense"
         }
-        fire.add_expense(self.USERNAME, td=t_data) 
+        fire.add_expense(self.usid, td=t_data, date=date) 
 
     def done_add_income(self):
         amount = self.root.get_screen('income').ids.amount.text
         descp = self.root.get_screen('income').ids.descp.text
         date = self.root.get_screen('income').ids.date_disp.text
         t_data = {
-            "Date": f"{date}",
             "Description": f"{descp}",
-            "Amount": f"{amount}"
+            "Amount": f"{amount}",
+            "Type": "Income"
         }
-        fire.add_income(self.USERNAME, td=t_data)
+        fire.add_expense(self.usid, td=t_data , date = date)
         
     def on_save_btn1(self,instance,value,date_range):
         a = display_date(value)

@@ -4,7 +4,7 @@ from firebase_admin import credentials
 from firebase_admin import initialize_app as f_admin_init
 from firebase_admin import db, auth, _auth_utils
 import pandas as pd
-
+from database import display_date,date
 # Firebase Configurationcand Credentials---------------------------------------------------------------
 firebaseConfig = {
   "apiKey": "AIzaSyCpjyclqZqiL5lkrEGH5KZEwyli3NXNJI0",
@@ -131,21 +131,24 @@ def forgot_paswd(user_email):
     except:
         return 1
 
-# Add Income------------------------------------------------------------------------
-def add_income(user_id, td):
+# Add Income / Expense ------------------------------------------------------------------------
+def add_expense(user_id, td, date):
     n = ref.child(f"{user_id}").get()
     p = n['Number of Transactions']
     p +=1
-    ref.child(f"{user_id}").child("Transaction").child(f"{p}").set(td)
     ref.child(f"{user_id}").update({"Number of Transactions":p})
+    
+    check = ref.child(f"{user_id}").child("Transaction").child(str(date)).get()
+    try: 
+        t_no = check['Transaction Number']
+        t_no +=1
+        ref.child(f"{user_id}").child("Transaction").child(str(date)).update({"Transaction Number":f"{t_no}"})
+        ref.child(f"{user_id}").child("Transaction").child(str(date)).child(f"{t_no}").set(td)
 
-# Add Expense ------------------------------------------------------------------------
-def add_expense(user_id, td):
-    n = ref.child(f"{user_id}").get()
-    p = n['Number of Transactions']
-    p +=1
-    ref.child(f"{user_id}").child("Transaction").child(f"{p}").set(td)
-    ref.child(f"{user_id}").update({"Number of Transactions":p})
+    except:
+        ref.child(f"{user_id}").child("Transaction").child(str(date)).set({"Transaction Number": 1})
+        ref.child(f"{user_id}").child("Transaction").child(str(date)).child(f"{1}").set(td)
+
 
 # Getting Balance ---------------------------------------------------------------------- 
 
@@ -182,12 +185,3 @@ def history(user_id):
 
     print(pd.concat(frames))
 
-t_data = {
-            "Date": "12/5/2023",
-            "Description": "Food",
-            "Category" : "Food",
-            "Amount": 500,
-            "Type" : "Expense"
-        }
-# balance("Heva")  
-add_expense("Heva", td=t_data)  
