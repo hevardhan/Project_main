@@ -89,40 +89,8 @@ MDScreen:
         MDRaisedButton:
             text: 'SIGNUP'
             size_hint: 0.66,0.065
-            pos_hint: {'center_x': 0.5,'center_y': .25}
+            pos_hint: {'center_x': 0.5,'center_y': .18}
             md_bg_color: rgba(52,0,231,255)
             font_name: "assets/Poppins-Bold"
             on_release: app.create_user()
             pos: self.pos
-        MDLabel:
-            text: 'or'
-            color: rgba(52,0,231,255)
-            pos_hint: {'center_y': .18}
-            font_size: '13sp'
-            font_name: 'assets/Poppins-Bold'
-            halign: 'center'
-        MDFloatLayout:
-            md_bg_color: rgba(178,178,178,255)   
-            size_hint: .3, .002
-            pos_hint: {'center_x':.3,'center_y':.178}
-        MDFloatLayout:
-            md_bg_color: rgba(178,178,178,255)   
-            size_hint: .3, .002
-            pos_hint: {'center_x':.7,'center_y':.178}   
-        MDLabel:
-            text: 'Social Media Login'
-            font_name: 'assets/Poppins-Bold'
-            font_size: '13sp'
-            halign: 'center'
-            pos_hint: {'center_y':.135} 
-            color: rgba(135,135,193,255)
-        MDGridLayout:
-            cols:3
-            size_hint: .70, .07
-            pos_hint: {"center_x": .5, "center_y": .07}
-            Image:
-                source: 'assets/google.png'
-            Image:
-                source: 'assets/fb.png'
-            Image:
-                source: 'assets/apple.png'
