@@ -2,6 +2,11 @@ MDScreen:
     name: 'develop'
     FitImage:
         source: 'assets/bg.jpg'
+    MDIconButton:
+        icon: 'keyboard-backspace'
+        on_release: app.home()
+        pos_hint: {'center_y': .95,'center_x':.1}
+        font_size: "50dp"
     Image:
         source: 'assets/pngegg.png'
         size_hint: .5,.5
