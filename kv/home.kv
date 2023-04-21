@@ -13,6 +13,20 @@
         font_size: '13sp'
         adaptive_height: True
         font_name: 'assets/Poppins-Medium'
+<DrawerClickableItem@MDNavigationDrawerItem>
+    focus_color: "#e7e4c0"
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    ripple_color: "#c5bdd2"
+    selected_color: "#0c6c4d"
+
+
+<DrawerLabelItem@MDNavigationDrawerItem>
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    focus_behavior: False
+    selected_color: "#4a4939"
+    _no_ripple_effect: True
 MDScreen:
     name: 'home2'
     MDNavigationLayout:
@@ -148,8 +162,36 @@ MDScreen:
             id: nav_drawer
             anchor: 'right'
             radius: [30,0,0,30]
-            MDNavigationDrawerMenu:    
-                MDLabel:
-                    text: "budget buddy"
-                    font_name: "assets/abode"
-                    font_size: "25dp"
+
+            MDNavigationDrawerMenu:
+
+                MDNavigationDrawerHeader:
+                    title: "Budget Buddy"
+                    title_color: "#4a4939"
+                    spacing: "4dp"
+                    padding: "12dp", 0, 0, "56dp"
+
+                MDNavigationDrawerLabel:
+                    text: "Options"
+
+                DrawerClickableItem:
+                    icon: "cog"
+                    text: "Settings"
+
+                DrawerClickableItem:
+                    icon: "account"
+                    text: "Profile"
+                
+                DrawerClickableItem:
+                    icon: "alert"
+                    text: "Report"
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerLabel:
+                    text: "About"
+
+                DrawerLabelItem:
+                    icon: "information-outline"
+                    text: "Version"
+                    right_text: '1.2.0'
