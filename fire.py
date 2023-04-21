@@ -3,6 +3,7 @@ from re import search, fullmatch
 from firebase_admin import credentials
 from firebase_admin import initialize_app as f_admin_init
 from firebase_admin import db, auth, _auth_utils
+import pandas as pd
 
 # Firebase Configurationcand Credentials---------------------------------------------------------------
 firebaseConfig = {
@@ -135,7 +136,7 @@ def add_income(user_id, td):
     n = ref.child(f"{user_id}").get()
     p = n['Number of Transactions']
     p +=1
-    ref.child(f"{user_id}").child("Transaction").child("Income").child(f"{p}").set(td)
+    ref.child(f"{user_id}").child("Transaction").child(f"{p}").set(td)
     ref.child(f"{user_id}").update({"Number of Transactions":p})
 
 # Add Expense ------------------------------------------------------------------------
@@ -143,23 +144,50 @@ def add_expense(user_id, td):
     n = ref.child(f"{user_id}").get()
     p = n['Number of Transactions']
     p +=1
-    ref.child(f"{user_id}").child("Transaction").child("Expense").child(f"{p}").set(td)
+    ref.child(f"{user_id}").child("Transaction").child(f"{p}").set(td)
     ref.child(f"{user_id}").update({"Number of Transactions":p})
 
 # Getting Balance ---------------------------------------------------------------------- 
+
 def balance(user_id):
-    inc_ref = db.reference(f'Userdata/{user_id}/Transaction/Income')
-    exp_ref = db.reference(f'Userdata/{user_id}/Transaction/Expense')
+    inc_ref = db.reference(f'Userdata/{user_id}/Transaction')
+    exp_ref = db.reference(f'Userdata/{user_id}/Transaction')
     exp_details = exp_ref.order_by_key().get()
     inc_details = inc_ref.order_by_key().get()
 
-    total_inc = sum([inc_details[key]['Amount'] for key in inc_details ])
-    total_exp = sum([exp_details[key]['Amount'] for key in exp_details ]) 
+    print(exp_details)
+
+    # total_inc = sum([inc_details[key]['Amount'] for key in inc_details ])
+    # total_exp = sum([exp_details[key]['Amount'] for key in exp_details ]) 
     
-    return total_inc-total_exp
+    # return total_inc-total_exp
 
 
 # Getting Display Name ------------------------------------------------------------------
 def get_display_name(uid):
     details = auth.get_user(uid)
     return details.display_name
+
+# History --------------------------------------------------------------------------------
+def history(user_id):
+    inc_ref = db.reference(f'Userdata/{user_id}/Transaction/Income')
+    exp_ref = db.reference(f'Userdata/{user_id}/Transaction/Expense')
+    exp_details = exp_ref.order_by_key().get()
+    inc_details = inc_ref.order_by_key().get()
+
+    df1 = pd.DataFrame.from_records([exp_details[key] for key in exp_details])
+    df2 = pd.DataFrame.from_records([inc_details[key] for key in inc_details])
+    
+    frames = [df1,df2]
+
+    print(pd.concat(frames))
+
+t_data = {
+            "Date": "12/5/2023",
+            "Description": "Food",
+            "Category" : "Food",
+            "Amount": 500,
+            "Type" : "Expense"
+        }
+# balance("Heva")  
+add_expense("Heva", td=t_data)  
