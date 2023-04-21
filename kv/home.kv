@@ -13,13 +13,6 @@
         font_size: '13sp'
         adaptive_height: True
         font_name: 'assets/Poppins-Medium'
-<FB>
-    anchor: 'right'
-    root_button_anim: True
-    label_text_color: "black"
-    bg_color_root_button: rgba(52,0,231,255)
-    label_bg_color: "#ADD8E6"
-    label_radius: [10,10,10,10]
 MDScreen:
     name: 'home2'
     MDNavigationLayout:
@@ -64,7 +57,6 @@ MDScreen:
                             radius: 30
                             md_bg_color: "#010729"
                             MDRelativeLayout:
-                                orientation: 'vertical'
                                 Image:
                                     source:"assets/chip2.png"
                                     pos_hint:{'center_y': .5,'center_x':.875}
@@ -123,7 +115,7 @@ MDScreen:
                         padding_x: "24dp" 
                     MDFloatLayout:
                         size_hint: None,None
-                        size: root.width, 215
+                        size: root.width, 450
                         orientation: 'vertical'
                         ScrollView:
                             do_scroll_x: True
@@ -147,10 +139,11 @@ MDScreen:
                                 Card:
                                     source: 'assets/btn4.png'
                                     text: 'More'
-                    FB:
-                        icon:"plus"
-                        data: app.speed_dial
-
+                        MDFloatingActionButton:
+                            icon:"plus"
+                            md_bg_color: rgba(52,0,231,255)
+                            pos_hint: {'center_x':.95,'center_y':.1}
+                            on_release: app.open_dialog()
         MDNavigationDrawer:
             id: nav_drawer
             anchor: 'right'
