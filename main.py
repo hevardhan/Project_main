@@ -137,6 +137,7 @@ class BudgetBuddy(MDApp):
     def home(self):
         sm.current = "home2"
         self.root.get_screen('home2').ids.name.text = self.USERNAME
+        self.root.get_screen('home2').ids.balance.text = f"{self.Balance}"
         sm.transition.direction = "right"
     def login(self):
         sm.current = "login"
