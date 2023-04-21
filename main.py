@@ -11,9 +11,16 @@ from kivy.core.text import LabelBase
 from kivymd.uix.pickers import MDDatePicker
 from database import display_date
 from datetime import datetime
+from kivymd.uix.menu import MDDropdownMenu
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
 
 Window.keyboard_anim_args = {'d': .2, 't': 'in_out_expo'}
 Window.softinput_mode = "below_target"
+
+
+
+
 
 
 LabelBase.register(name='abode',
@@ -30,14 +37,31 @@ class ContentNavigationDrawer(BoxLayout):
 class BudgetBuddy(MDApp):
     
     global sm
-
-    
     sm = ScreenManager()
+    
+    def dropdown(self):
+        self.menu_list = [
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Example 1',
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Example 1',
+            }           
+        ]
+        self.menu = MDDropdownMenu(
+            caller = self.root.get_screen('expense').ids.drop_btn,
+            items = self.menu_list,
+            width_mult = 4,
+        )
+        self.menu.open()
     def build(self):
         self.theme_cls.primary_palette = "Blue"
         self.theme_cls.primary_hue = "500"
         self.theme_cls.accent_palette = "Gray"
         self.USERNAME = " "
+        self.dialog = MDDialog()
         self.speed_dial = {
             "Add Expense" : ["plus","on_release", lambda x: BudgetBuddy.add_expense(self)],
             "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
@@ -125,12 +149,20 @@ class BudgetBuddy(MDApp):
     def forgot(self):
         sm.current = 'forgot-pass'
         sm.transition.direction = "left"
-
-    def add_expense(self):
+    
+    def open_dialog(self):
+        in_btn = MDFlatButton(text="Income",on_release=self.add_income, on_press= self.close_dialog)
+        exp_btn = MDFlatButton(text="Expense",on_release=self.add_expense, on_press= self.close_dialog)
+        self.dialog = MDDialog(title = 'ADD',size_hint=(0.7,1),buttons = [in_btn, exp_btn],elevation=0)
+        self.dialog.open()
+        
+    def close_dialog(self,obj):
+        self.dialog.dismiss()
+    def add_expense(self,obj):
         sm.current = 'expense'
         sm.transition.direction = "left"
 
-    def add_income(self):
+    def add_income(self,obj):
         sm.current = 'income'
         sm.transition.direction = "left"
         
@@ -171,5 +203,12 @@ class BudgetBuddy(MDApp):
             "Amount": f"{amount}"
         }
         fire.add_income(self.USERNAME, td=t_data)
-
+        
+    def on_save_btn1(self,instance,value,date_range):
+        a = display_date(value)
+        self.root.get_screen('btn1').ids.btn_date.text= a
+    def show_date_picker_btn1(self):
+        date_dialog = MDDatePicker(font_name="assets/Poppins-Medium")  
+        date_dialog.bind(on_save=self.on_save_btn1)
+        date_dialog.open()   
 BudgetBuddy().run()

@@ -1,6 +1,6 @@
 <Card>
     orientation: 'vertical'
-    radius: 12
+    radius: 15
     padding: '8dp'
     size_hint: None, None
     size: "180dp", "170dp"
@@ -45,7 +45,7 @@ MDScreen:
                     MDGridLayout:
                         size_hint_y: None
                         size_hint_x: None
-                        height: 2*(root.height/5)
+                        height: 1*(root.height/3)
                         width: root.width
                         rows:1
                         cols:1
@@ -58,15 +58,11 @@ MDScreen:
                             md_bg_color: "#010729"
                             MDRelativeLayout:
                                 Image:
-                                    source:"assets/visa2.png"
-                                    pos_hint:{'center_y': .85,'center_x':.825}
-                                Image:
                                     source:"assets/chip2.png"
                                     pos_hint:{'center_y': .5,'center_x':.875}
                                 MDIcon:
                                     icon:"currency-rupee"
-                                    pos_hint:{'center_y':.65}
-                                    padding_x: 20
+                                    pos_hint:{'center_y':.65,'center_x':.1}
                                     font_size: '25sp'
                                     color: "white"
                                 MDLabel:
@@ -74,37 +70,31 @@ MDScreen:
                                     color: "white"
                                     font_name: 'assets/Poppins-Medium'
                                     font_size: '25sp'
-                                    pos_hint:{'center_y': .65}
+                                    pos_hint:{'center_y': .65,'center_x':.65}
                                     adaptive_height: True
-                                    padding_x: 50
                                 MDLabel:
                                     text: 'Balance'
                                     font_name: 'assets/Poppins-Medium'
                                     font_size: '12sp'
-                                    pos_hint:{'center_y': .85}
-                                    adaptive_height: True
-                                    padding_x: 25
+                                    pos_hint:{'center_y': .85,'center_x':.6}
                                     color: "grey"
                                 MDLabel:
                                     text: '**** **** **** 1 0 1 0'
                                     font_name: 'assets/Techfont'
                                     font_size: '15sp'
-                                    pos_hint:{'center_y': .425}
+                                    pos_hint:{'center_y': .425,'center_x':.6}
                                     adaptive_height: True
-                                    padding_x: 25
                                     color: "white"
                                 MDLabel:
                                     text: 'Spend'
                                     font_name: 'assets/Poppins-Medium'
                                     font_size: '12sp'
-                                    pos_hint:{'center_y': .3}
+                                    pos_hint:{'center_y': .3,'center_x':.6}
                                     adaptive_height: True
-                                    padding_x: 25
                                     color: "grey"
                                 MDIcon:
                                     icon:"currency-rupee"
-                                    pos_hint:{'center_y':.15}
-                                    padding_x: 25
+                                    pos_hint:{'center_y':.15,'center_x':.1}
                                     font_size: '12sp'
                                     color: "white"
                                 MDLabel:
@@ -113,50 +103,47 @@ MDScreen:
                                     color: "white"
                                     font_name: 'assets/Poppins-Medium'
                                     font_size: '12sp'
-                                    pos_hint:{'center_y': .15}
+                                    pos_hint:{'center_y': .15,'center_x':.65}
                                     adaptive_height: True
-                                    padding_x: 40
+                                    
                     MDLabel:
                         text: "Activities :"
                         font_name: 'assets/Poppins-Medium'
                         font_size: '20sp'
                         pos_hint: {'center_y': 0.4}
                         adaptive_height: True  
-                        padding_x: "24dp"      
-                    ScrollView:
+                        padding_x: "24dp" 
+                    MDFloatLayout:
                         size_hint: None,None
-                        size: root.width, 200        
-                        do_scroll_x: True
-                        do_scroll_y: False
-                        pos_hint: {'center_y': 0.2}
-                        MDGridLayout:
-                            size_hint_x: None
-                            width: self.minimum_width
-                            spacing: 10
-                            padding: 10
-                            rows: 1
-                            Card:
-                                source: 'assets/btn.png'
-                                text: 'Daily Expenses'
-                                on_release: app.btn1()
-                            Card:
-                                source: 'assets/btn21.png'
-                                text: 'Balance and History'
-                            Card:
-                                source: 'assets/btn31.png'
-                                text: 'Reports'
-                            Card:
-                                source: 'assets/btn4.png'
-                                text: 'More'
-                    MDFloatingActionButtonSpeedDial:
-                        icon:"plus"
-                        data: app.speed_dial
-                        root_button_anim: True
-                        label_text_color: "black"
-                        anchor: "right"
-                        bg_color_root_button: rgba(52,0,231,255)
-                        label_bg_color: "#ADD8E6"
-                        label_radius: [10,10,10,10]
+                        size: root.width, 450
+                        orientation: 'vertical'
+                        ScrollView:
+                            do_scroll_x: True
+                            do_scroll_y: False
+                            MDGridLayout:
+                                size_hint_x: None
+                                width: self.minimum_width
+                                spacing: 10
+                                padding: 10
+                                rows: 1
+                                Card:
+                                    source: 'assets/btn.png'
+                                    text: 'Daily Expenses'
+                                    on_release: app.btn1()
+                                Card:
+                                    source: 'assets/btn21.png'
+                                    text: 'Balance and History'
+                                Card:
+                                    source: 'assets/btn31.png'
+                                    text: 'Reports'
+                                Card:
+                                    source: 'assets/btn4.png'
+                                    text: 'More'
+                        MDFloatingActionButton:
+                            icon:"plus"
+                            md_bg_color: rgba(52,0,231,255)
+                            pos_hint: {'center_x':.95,'center_y':.1}
+                            on_release: app.open_dialog()
         MDNavigationDrawer:
             id: nav_drawer
             anchor: 'right'
