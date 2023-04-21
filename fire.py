@@ -153,18 +153,23 @@ def add_expense(user_id, td, date):
 # Getting Balance ---------------------------------------------------------------------- 
 
 def balance(user_id):
-    inc_ref = db.reference(f'Userdata/{user_id}/Transaction')
-    exp_ref = db.reference(f'Userdata/{user_id}/Transaction')
-    exp_details = exp_ref.order_by_key().get()
-    inc_details = inc_ref.order_by_key().get()
-
-    print(exp_details)
-
-    # total_inc = sum([inc_details[key]['Amount'] for key in inc_details ])
-    # total_exp = sum([exp_details[key]['Amount'] for key in exp_details ]) 
+    trans_ref = db.reference(f'Userdata/{user_id}/Transaction')
+    trans_details = trans_ref.order_by_key().get()
     
-    # return total_inc-total_exp
+    sum_inc = 0
+    sum_exp = 0
 
+    for date in trans_details:
+        for key in trans_details[date]:
+            if key.isnumeric():
+                if trans_details[date][key]['Type'] == "Income":
+                    sum_inc += trans_details[date][key]['Amount']
+                else:
+                    sum_exp += trans_details[date][key]['Amount']
+
+
+
+    return sum_inc - sum_exp
 
 # Getting Display Name ------------------------------------------------------------------
 def get_display_name(uid):
@@ -185,3 +190,4 @@ def history(user_id):
 
     print(pd.concat(frames))
 
+balance("hevardhan")

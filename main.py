@@ -97,6 +97,7 @@ class BudgetBuddy(MDApp):
         self.theme_cls.accent_palette = "Gray"
         self.USERNAME = " "
         self.usid = ''
+        self.Balance = 0
         self.dialog = MDDialog()
         self.speed_dial = {
             "Add Expense" : ["plus","on_release", lambda x: BudgetBuddy.add_expense(self)],
@@ -159,6 +160,7 @@ class BudgetBuddy(MDApp):
         
         if fire.login(user_id=self.usid,paswd=passwd) == 0 :
             self.USERNAME = fire.get_display_name(self.usid)
+            self.Balance = fire.balance(self.usid)
             BudgetBuddy.home(self)
             
         elif fire.login(user_id=self.usid,paswd=passwd) == 1:
@@ -232,7 +234,8 @@ class BudgetBuddy(MDApp):
             "Category" : f"{category}",
             "Type" : "Expense"
         }
-        fire.add_expense(self.usid, td=t_data, date=date) 
+        fire.add_expense(self.usid, td=t_data, date=date)
+        self.Balance = fire.balance(self.usid) 
         BudgetBuddy.home(self)
 
     def done_add_income(self):
@@ -245,6 +248,7 @@ class BudgetBuddy(MDApp):
             "Type": "Income"
         }
         fire.add_expense(self.usid, td=t_data , date = date)
+        self.Balance = fire.balance(self.usid)
         BudgetBuddy.home(self)
         
     def on_save_btn1(self,instance,value,date_range):
