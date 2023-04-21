@@ -68,9 +68,9 @@ class BudgetBuddy(MDApp):
         }
 
         # sm.add_widget(Builder.load_file("kv/startup.kv"))
-        # sm.add_widget(Builder.load_file("kv/home.kv"))
-        # sm.add_widget(Builder.load_file("kv/profile.kv"))
-        # sm.add_widget(Builder.load_file("kv/login.kv"))
+        sm.add_widget(Builder.load_file("kv/home.kv"))
+        sm.add_widget(Builder.load_file("kv/profile.kv"))
+        sm.add_widget(Builder.load_file("kv/login.kv"))
         sm.add_widget(Builder.load_file("kv/signup.kv"))
         sm.add_widget(Builder.load_file('kv/btn1.kv'))
         sm.add_widget(Builder.load_file("kv/forgot.kv"))
@@ -203,5 +203,12 @@ class BudgetBuddy(MDApp):
             "Amount": f"{amount}"
         }
         fire.add_income(self.USERNAME, td=t_data)
-
+        
+    def on_save_btn1(self,instance,value,date_range):
+        a = display_date(value)
+        self.root.get_screen('btn1').ids.btn_date.text= a
+    def show_date_picker_btn1(self):
+        date_dialog = MDDatePicker(font_name="assets/Poppins-Medium")  
+        date_dialog.bind(on_save=self.on_save_btn1)
+        date_dialog.open()   
 BudgetBuddy().run()
