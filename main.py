@@ -70,7 +70,7 @@ class BudgetBuddy(MDApp):
         # sm.add_widget(Builder.load_file("kv/startup.kv"))
         # sm.add_widget(Builder.load_file("kv/home.kv"))
         # sm.add_widget(Builder.load_file("kv/profile.kv"))
-        # sm.add_widget(Builder.load_file("kv/login.kv"))
+        sm.add_widget(Builder.load_file("kv/login.kv"))
         sm.add_widget(Builder.load_file("kv/signup.kv"))
         sm.add_widget(Builder.load_file('kv/btn1.kv'))
         sm.add_widget(Builder.load_file("kv/forgot.kv"))
