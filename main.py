@@ -40,15 +40,50 @@ class BudgetBuddy(MDApp):
     sm = ScreenManager()
     
     def dropdown(self):
+
         self.menu_list = [
             {
                 "viewclass":"OneLineListItem",
+                "text":'Grocery',
+                "on_press" : lambda x=f"Grocery": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Food',
+                "on_press" : lambda x=f"Food": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Clothing',
+                "on_press" : lambda x=f"Clothing": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Electricity',
+                "on_press" : lambda x=f"Electricity": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Fuel',
+                "on_press" : lambda x=f"Fuel": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Water',
+                "on_press" : lambda x=f"": self.set_item(x),
                 "text":'Example 1',
             },
             {
                 "viewclass":"OneLineListItem",
-                "text":'Example 1',
-            }           
+                "text":'Rent',
+                "on_press" : lambda x=f"Rent": self.set_item(x),
+            },
+            {
+                "viewclass":"OneLineListItem",
+                "text":'Others',
+                "on_press" : lambda x=f"Others": self.set_item(x),
+            }
+                   
         ]
         self.menu = MDDropdownMenu(
             caller = self.root.get_screen('expense').ids.drop_btn,
@@ -80,7 +115,11 @@ class BudgetBuddy(MDApp):
         return sm
    
         
-#--------H O M E   P A G E ----------#         
+#--------H O M E   P A G E ----------#      
+    def set_item(self, text_item):
+        self.root.get_screen("expense").ids.drop_btn.text = text_item
+        self.menu.dismiss()
+        print(self.root.get_screen("expense").ids.drop_btn.text)   
     
 #--------Back To Home------------------------------------------       
     def back(self):
