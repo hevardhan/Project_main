@@ -35,7 +35,7 @@ MDScreen:
         MDTextField:
             id: dname
             hint_text: "Display Name"
-            pos_hint: {'center_x': .5, 'center_y': .65}
+            pos_hint: {'center_x': .5, 'center_y': .64}
             text_color_focus: rgba(0,0,59,255)
             font_name: "assets/Poppins-Medium"
             font_size: "20sp"
@@ -49,7 +49,7 @@ MDScreen:
         MDTextField:
             id: email
             hint_text: "Email"
-            pos_hint: {'center_x': .5, 'center_y': .55}
+            pos_hint: {'center_x': .5, 'center_y': .53}
             text_color_focus: rgba(0,0,59,255)
             font_name: "assets/Poppins-Medium"
             font_size: "20sp"
@@ -62,7 +62,23 @@ MDScreen:
         MDTextField:
             id: pwd
             hint_text: "Password"
-            pos_hint: {'center_x': .5, 'center_y': .45}
+            pos_hint: {'center_x': .5, 'center_y': .42}
+            text_color_focus: rgba(0,0,59,255)
+            font_name: "assets/Poppins-Medium"
+            font_size: "20sp"
+            size_hint_x: 0.8
+            anchor: "left"
+            color_mode: 'custom'
+            line_color_focus: rgba(0,0,59,255)
+            hint_text_color_focus: rgba(0,0,59,255)
+            multiline: False
+            helper_text_mode: 'on_focus'
+            helper_text: "Password must contain atleast 8 characters"
+            password: True
+        MDTextField:
+            id: cpwd
+            hint_text: "Confirm Password"
+            pos_hint: {'center_x': .5, 'center_y': .3}
             text_color_focus: rgba(0,0,59,255)
             font_name: "assets/Poppins-Medium"
             font_size: "20sp"
@@ -73,19 +89,6 @@ MDScreen:
             hint_text_color_focus: rgba(0,0,59,255)
             multiline: False
             password: True
-        MDTextField:
-            id: cpwd
-            hint_text: "Confirm Password"
-            pos_hint: {'center_x': .5, 'center_y': .35}
-            text_color_focus: rgba(0,0,59,255)
-            font_name: "assets/Poppins-Medium"
-            font_size: "20sp"
-            size_hint_x: 0.8
-            anchor: "left"
-            color_mode: 'custom'
-            line_color_focus: rgba(0,0,59,255)
-            hint_text_color_focus: rgba(0,0,59,255)
-            multiline: False
         MDRaisedButton:
             text: 'SIGNUP'
             size_hint: 0.66,0.065

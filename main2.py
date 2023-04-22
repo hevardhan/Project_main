@@ -1,4 +1,4 @@
-from kivy.uix.screenmanager import ScreenManager,Screen
+from kivy.uix.screenmanager import ScreenManager
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivymd.app import MDApp
@@ -14,38 +14,59 @@ from datetime import datetime
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
-from kivymd.uix.relativelayout import MDRelativeLayout
-from kivymd.uix.label import MDLabel,MDIcon
-
-
+from kivymd.uix.datatables import MDDataTable
+from kivy.metrics import dp
 
 Window.keyboard_anim_args = {'d': .2, 't': 'in_out_expo'}
 Window.softinput_mode = "below_target"
 
 
 
-kv ='''
-<Card>
-    orientation: 'vertical'
-    radius: 15
-    padding: '8dp'
-    size_hint: None, None
-    size: "200dp", "100dp"
-    ripple_behavior: True
-    md_bg_color: 'red'
-    Image:
-        source: root.source
-    MDLabel:
-        text: root.text
-        halign: 'center'
-        font_size: '13sp'
-        adaptive_height: True
-        font_name: 'assets/Poppins-Medium'
-'''
+
 
 
 LabelBase.register(name='abode',
                    fn_regular='assets/abode.ttf')
+
+from kivymd.theming import ThemableBehavior
+from kivymd.uix.datatables import MDDataTable
+from kivy.clock import Clock
+
+class MyDataTable(MDDataTable):
+        def __init__(self, **kwargs):
+            # skip the MDDataTable.__init__() and call its superclass __init__()
+            super(ThemableBehavior, self).__init__(**kwargs)
+    
+            # schedule call to MDDataTable.__init__() contents after ids are populated
+            Clock.schedule_once(partial(self.delayed_init, **kwargs))
+    
+        def delayed_init(self, dt, **kwargs):
+            # this is copied from MDDataTable.__init__() with super() call deleted
+            self.header = TableHeader(
+                column_data=self.column_data,
+                sorted_on=self.sorted_on,
+                sorted_order=self.sorted_order,
+            )
+            self.table_data = TableData(
+                self.header,
+                row_data=self.row_data,
+                check=self.check,
+                rows_num=self.rows_num,
+                _parent=self,
+            )
+            self.register_event_type("on_row_press")
+            self.register_event_type("on_check_press")
+            self.pagination = TablePagination(table_data=self.table_data)
+            self.table_data.pagination = self.pagination
+            self.header.table_data = self.table_data
+            self.table_data.fbind("scroll_x", self._scroll_with_header)
+            self.ids.container.add_widget(self.header)
+            self.ids.container.add_widget(self.table_data)
+            if self.use_pagination:
+                self.ids.container.add_widget(self.pagination)
+            Clock.schedule_once(self.create_pagination_menu, 0.5)
+            self.bind(row_data=self.update_row_data)
+
 class Card(MDCard):
     source = StringProperty()
     text = StringProperty()
@@ -91,7 +112,8 @@ class BudgetBuddy(MDApp):
             {
                 "viewclass":"OneLineListItem",
                 "text":'Water',
-                "on_press" : lambda x=f"Water": self.set_item(x),
+                "on_press" : lambda x=f"": self.set_item(x),
+                "text":'Example 1',
             },
             {
                 "viewclass":"OneLineListItem",
@@ -123,6 +145,16 @@ class BudgetBuddy(MDApp):
             "Add Expense" : ["plus","on_release", lambda x: BudgetBuddy.add_expense(self)],
             "Add Income"  : ["cash-plus","on_release", lambda x: BudgetBuddy.add_income(self)],
         }
+
+        self.table = MDDataTable(
+            column_data=[
+                ("Sr.No", dp(30)),
+                ("Date", dp(30)),
+                ("Type", dp(30)),
+                ("Category", dp(30)),
+                ("Amount", dp(30))
+            ]
+        )
         
         
         # sm.add_widget(Builder.load_file("kv/startup.kv"))
@@ -135,7 +167,7 @@ class BudgetBuddy(MDApp):
         sm.add_widget(Builder.load_file("kv/expense.kv"))
         sm.add_widget(Builder.load_file("kv/income.kv"))
         sm.add_widget(Builder.load_file("kv/develop.kv"))
-        Builder.load_string(kv)
+        
         return sm
    
         
@@ -153,36 +185,6 @@ class BudgetBuddy(MDApp):
     def btn1(self):
         sm.current= 'btn1'
         sm.transition.direction = 'left'
-        
-        date_btn = self.root.get_screen('btn1').ids.btn_date.text
-        try:
-            list_disp = fire.history_per_day(user_id="hevardhan",date=date_btn)
-        except KeyError:
-            len_list = 0
-            Snackbar(text="No Record").open()
-        else:
-            len_list = len(list_disp)
-            self.root.get_screen('btn1').ids.md_list.rows = len_list
-        for i in range(len_list):
-            self.root.get_screen('btn1').ids.md_list.add_widget(
-                MDCard(
-                    MDRelativeLayout(
-                            MDLabel(
-                                text="Button",
-                                adaptive_size=True,
-                                color="grey",
-                                pos=("12dp", "12dp"),
-                    )
-                  ),
-                  line_color=(0.2, 0.2, 0.2, 0.8),
-                  padding="8dp",
-                  size_hint=(None, None),
-                  size=("200dp", "100dp"),
-                  radius = 15,
-                orientation = 'vertical',
-                )
-            )
-
     def profile(self):      
         sm.current= "profile"
         sm.transition.direction = "left"
@@ -307,61 +309,8 @@ class BudgetBuddy(MDApp):
     def on_save_btn1(self,instance,value,date_range):
         a = display_date(value)
         self.root.get_screen('btn1').ids.btn_date.text= a
-        try:
-            list_disp = fire.history_per_day(user_id="hevardhan",date=a)
-        except KeyError:
-            len_list = 0
-            Snackbar(text="No Record").open()
-        else:
-            len_list = len(list_disp)
-            self.root.get_screen('btn1').ids.md_list.rows = len_list
-            for i in range(len_list):
-                amount = list_disp[i]['Amount']
-                descp  = list_disp[i]['Description']
-                # cat    = list_disp[i]['Category'] 
-                mode   = list_disp[i]['Type']
-                self.root.get_screen('btn1').ids.md_list.add_widget(
-                    MDCard(
-                        MDRelativeLayout(
-                                MDLabel(
-                                    text=f"{amount}",
-                                    adaptive_size=True,
-                                    color="grey",
-                                    pos_hint={'center_y':.9,'center_x':.47}
-                                ),
-                                MDIcon(
-                                    icon = 'currency-rupee',
-                                    pos_hint={'center_y':.9}
-                                ),
-                                MDLabel(
-                                    text=f"{descp}",
-                                    adaptive_size=True,
-                                    color="grey",
-                                    pos_hint={'center_y':.4,'center_x':.47}
-                                ),
-                                MDIcon(
-                                    icon = 'note',
-                                    pos_hint={'center_y':.4}
-                                ),
-                                MDLabel(
-                                    text=f"{mode}",
-                                    adaptive_size=True,
-                                    color="grey",
-                                    pos_hint={'center_y':.1}
-                                )
-                    ),
-                    line_color=(0.2, 0.2, 0.2, 0.8),
-                    padding="8dp",
-                    size_hint=(None, None),
-                    size=("200dp", "100dp"),
-                    radius = 15,
-                    orientation = 'vertical',
-                    )
-                )
-
     def show_date_picker_btn1(self):
         date_dialog = MDDatePicker(font_name="assets/Poppins-Medium")  
         date_dialog.bind(on_save=self.on_save_btn1)
-        date_dialog.open()
-        self.root.get_screen('btn1').ids.md_list.clear_widgets()
+        date_dialog.open()   
 BudgetBuddy().run()
