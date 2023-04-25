@@ -129,7 +129,7 @@ MDScreen:
                         padding_x: "24dp" 
                     MDFloatLayout:
                         size_hint: None,None
-                        size: root.width, 400
+                        size: root.width, 225
                         orientation: 'vertical'
                         ScrollView:
                             do_scroll_x: True
@@ -156,7 +156,7 @@ MDScreen:
                     MDFloatingActionButton:
                         icon:"plus"
                         md_bg_color: rgba(52,0,231,255)
-                        pos_hint: {'center_x': .90,'center_y':.15}
+                        pos_hint: {'center_x': .90,'center_y':.1}
                         on_release: app.open_dialog()
         MDNavigationDrawer:
             id: nav_drawer
@@ -181,6 +181,7 @@ MDScreen:
                 DrawerClickableItem:
                     icon: "account"
                     text: "Profile"
+                    on_release: app.profile()
                 
                 DrawerClickableItem:
                     icon: "alert"

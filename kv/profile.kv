@@ -1,5 +1,7 @@
 MDScreen:
     name: 'profile'
+    FitImage:
+        source: 'assets/bg3.jpg'
     MDFloatLayout:
         MDTopAppBar:
             title: 'Profile'
@@ -9,8 +11,40 @@ MDScreen:
             pos_hint: {'center_x': 0.5,'center_y': 0.95}
         Image:
             source: "assets/profile2.png"
-            pos_hint: {'center_x': 0.5,'center_y': 0.75}
+            pos_hint: {'center_x': 0.5,'center_y': 0.80}
+
         MDLabel:
             text: "NAME"
-            pos_hint: {'center_x': .5,'center_y': 0.60}
+            font_size: "23sp"
+            pos_hint: {'center_x': .5,'center_y': 0.70}
             halign: "center"
+
+        MDLabel:
+            text: "This Month"
+            font_size: "20sp"
+            pos_hint: {'center_x': .2,'center_y': 0.60}
+            halign: "center"
+
+        MDLabel:
+            text: "Spending:"
+            font_name: "assets/Poppins-Bold"
+            font_size: "15sp"
+            pos_hint: {'center_x': .55, 'center_y': 0.54}
+            color: "red"
+            padding_x: 30
+
+        MDLabel:
+            text: "Income:"
+            font_name: "assets/Poppins-Bold"
+            font_size: "15sp"
+            pos_hint: {'center_x': .55, 'center_y': 0.49}
+            color: "green"
+            padding_x: 30
+
+        MDLabel:
+            text: "Balance:"
+            font_name: "assets/Poppins-Bold"
+            font_size: "15sp"
+            pos_hint: {'center_x': .55, 'center_y': 0.44}
+            color: "grey"
+            padding_x: 30
