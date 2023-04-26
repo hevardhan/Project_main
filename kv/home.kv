@@ -147,9 +147,11 @@ MDScreen:
                                 Card:
                                     source: 'assets/btn21.png'
                                     text: 'Balance and History'
+                                    on_release: app.profile()   
                                 Card:
                                     source: 'assets/btn31.png'
                                     text: 'Reports'
+                                    on_release: app.graph()
                                 Card:
                                     source: 'assets/btn4.png'
                                     text: 'More'
@@ -177,6 +179,7 @@ MDScreen:
                 DrawerClickableItem:
                     icon: "cog"
                     text: "Settings"
+                    on_release: app.develop()
 
                 DrawerClickableItem:
                     icon: "account"
@@ -186,6 +189,7 @@ MDScreen:
                 DrawerClickableItem:
                     icon: "alert"
                     text: "Report"
+                    on_release: app.develop()
 
                 MDNavigationDrawerDivider:
 
