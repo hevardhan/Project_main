@@ -215,8 +215,9 @@ def export(user_id, pswd):
 
     wb = Workbook()
     ws = wb.active
-    # ws1 = wb.create_sheet("Expenses")
+    ws1 = wb.create_sheet("Expenses")
 
+    # Worksheet -----------------------
     ws.merge_cells('A1:F1')
     cell1 = ws['A1']
     cell1.value = f'Name: {name}'
@@ -225,12 +226,18 @@ def export(user_id, pswd):
     cell2 = ws['A2']
     cell2.value = f'Number of Transactions : {t_no}'
 
+    ws.merge_cells('A3:F3')
+    cell2 = ws['A3']
+    cell2.value = f'Balance : {balance(user_id)}'
+
+
     ws['A4'] = 'SNO'
     ws['B4'] = 'Date'
     ws['C4'] = 'Description'
     ws['D4'] = 'Category'
     ws['E4'] = 'Amount'
     ws['F4'] = 'Type'
+    
 
     i = 5
     j = 1
@@ -241,7 +248,7 @@ def export(user_id, pswd):
                 ws[f'A{i}'] = j
                 ws[f'B{i}'] = date
                 ws[f'C{i}'] = trans_data[date][key]['Description']
-                ws[f'E{i}'] = trans_data[date][key]['Amount']
+                ws[f'E{i}'] = int(trans_data[date][key]['Amount'])
                 ws[f'F{i}'] = trans_data[date][key]['Type']
                 try:
                     ws[f'D{i}'] = trans_data[date][key]['Category']
@@ -250,18 +257,46 @@ def export(user_id, pswd):
                 
                 i +=1
                 j +=1
+
+    # Worksheet 1 -----------------------
+    ws1.merge_cells('A1:F1')
+    cell1 = ws1['A1']
+    cell1.value = f'Expenses'
+
+
+    ws1['A3'] = 'SNO'
+    ws1['B3'] = 'Date'
+    ws1['C3'] = 'Description'
+    ws1['D3'] = 'Category'
+    ws1['E3'] = 'Amount'
+
+    i = 4
+    j = 1
+
+    for date in trans_data:
+        for key in trans_data[date]:
+            if key.isnumeric():
+                if trans_data[date][key]['Type'] == 'Expense':
+                    ws1[f'A{i}'] = j
+                    ws1[f'B{i}'] = date
+                    ws1[f'C{i}'] = trans_data[date][key]['Description']
+                    ws1[f'E{i}'] = int(trans_data[date][key]['Amount'])               
+                    ws1[f'D{i}'] = trans_data[date][key]['Category']
+           
+                    i +=1
+                    j +=1
     
     
-    # chart = DoughnutChart()
+    chart = DoughnutChart()
 
-    # labels = Reference(ws, min_col= 4, min_row=5, max_row=t_no+5)
-    # data = Reference(ws, min_col=5, min_row=4, max_row=t_no+5)
+    labels = Reference(ws1, min_col= 4, min_row=4, max_row=i-1)
+    data = Reference(ws1, min_col=5, min_row=3, max_row=i-1)
 
-    # chart.add_data(data, titles_from_data=True)
-    # chart.set_categories(labels)
-    # chart.title = "Expense Distribution"
-    # chart.style = 26
-    # ws.add_chart(chart, "H1")
+    chart.add_data(data, titles_from_data=True)
+    chart.set_categories(labels)
+    chart.title = "Expense Distribution"
+    chart.style = 26
+    ws.add_chart(chart, "H1")
 
     filename = 'Transactions.xlsx'
 
@@ -272,6 +307,5 @@ def export(user_id, pswd):
     # Getting the user's download folder and saving it there
     downloads = os.path.join(os.path.expanduser('~'), 'Downloads')
     wb.save(f'{downloads}\\{filename}')
-
-            
+          
 
