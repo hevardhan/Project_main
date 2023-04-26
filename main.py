@@ -136,7 +136,7 @@ class BudgetBuddy(MDApp):
         }
         
         
-        # sm.add_widget(Builder.load_file("kv/startup.kv"))
+        sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/graph1.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
@@ -253,7 +253,7 @@ class BudgetBuddy(MDApp):
         elif check == 4:
             Snackbar(text="Username already exists").open()
         elif check == 2 :
-            Snackbar(text="Confirm Passowrd doesnt match").open()
+            Snackbar(text="Confirm Password doesnt match").open()
         elif check == 3:
             Snackbar(text="Invalid Email id or Password").open()
         elif check ==1:
@@ -270,6 +270,7 @@ class BudgetBuddy(MDApp):
         
     def close_dialog(self,obj):
         self.dialog.dismiss()
+
     def add_expense(self,obj):
         sm.current = 'expense'
         sm.transition.direction = "left"
@@ -289,6 +290,7 @@ class BudgetBuddy(MDApp):
     def on_save_expense(self,instance,value,date_range):
         a = display_date(value)
         self.root.get_screen('expense').ids.date_disp.text= a
+
     def show_date_picker_expense(self):
         date_dialog = MDDatePicker(font_name="assets/Poppins-Medium")  
         date_dialog.bind(on_save=self.on_save_expense)
@@ -382,6 +384,7 @@ class BudgetBuddy(MDApp):
         date_dialog.bind(on_save=self.on_save_btn1)
         date_dialog.open()
         self.root.get_screen('btn1').ids.md_list.clear_widgets()
+    
     def save_xl(self):
         fire.export(user_id=self.usid,pswd="12345678")
 BudgetBuddy().run()
