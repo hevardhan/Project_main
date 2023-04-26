@@ -1,7 +1,6 @@
+#profile page
 MDScreen:
     name: 'profile'
-    FitImage:
-        source: 'assets/bg3.jpg'
     MDFloatLayout:
         MDTopAppBar:
             title: 'Profile'
@@ -11,40 +10,32 @@ MDScreen:
             pos_hint: {'center_x': 0.5,'center_y': 0.95}
         Image:
             source: "assets/profile2.png"
-            pos_hint: {'center_x': 0.5,'center_y': 0.80}
-
+            pos_hint: {'center_x': 0.5,'center_y': 0.75}
         MDLabel:
             text: "NAME"
-            font_size: "23sp"
-            pos_hint: {'center_x': .5,'center_y': 0.70}
+            font_size: "25sp"
+            pos_hint: {'center_x': .5,'center_y': 0.65}
             halign: "center"
 
         MDLabel:
-            text: "This Month"
-            font_size: "20sp"
-            pos_hint: {'center_x': .2,'center_y': 0.60}
-            halign: "center"
-
-        MDLabel:
-            text: "Spending:"
-            font_name: "assets/Poppins-Bold"
-            font_size: "15sp"
-            pos_hint: {'center_x': .55, 'center_y': 0.54}
-            color: "red"
-            padding_x: 30
-
-        MDLabel:
-            text: "Income:"
-            font_name: "assets/Poppins-Bold"
-            font_size: "15sp"
-            pos_hint: {'center_x': .55, 'center_y': 0.49}
-            color: "green"
-            padding_x: 30
-
-        MDLabel:
-            text: "Balance:"
-            font_name: "assets/Poppins-Bold"
-            font_size: "15sp"
-            pos_hint: {'center_x': .55, 'center_y': 0.44}
+            text: 'USERNAME'
+            font_name: 'assets/Poppins-Medium'
+            font_size: '20sp'
+            pos_hint:{'center_y': .50,'center_x':.6}
             color: "grey"
-            padding_x: 30
+
+        MDLabel:
+            text: 'E-MAIL ADDRESS'
+            font_name: 'assets/Poppins-Medium'
+            font_size: '20sp'
+            pos_hint: {'center_y': .40, 'center_x': .6}
+            color: "grey"
+
+        MDRaisedButton:
+            text: 'LOGOUT'
+            size_hint: 0.66,0.065
+            pos_hint: {'center_x': 0.5,'center_y': .18}
+            md_bg_color: rgba(52,0,231,255)
+            font_name: "assets/Poppins-Bold"
+            on_release: app.create_user()
+            pos: self.pos
