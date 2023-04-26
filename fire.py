@@ -167,9 +167,9 @@ def balance(user_id):
         for key in trans_details[date]:
             if key.isnumeric():
                 if trans_details[date][key]['Type'] == "Income":
-                    sum_inc += trans_details[date][key]['Amount']
+                    sum_inc += int(trans_details[date][key]['Amount'])
                 else:
-                    sum_exp += trans_details[date][key]['Amount']
+                    sum_exp += int(trans_details[date][key]['Amount'])
 
     return sum_inc - sum_exp
 
