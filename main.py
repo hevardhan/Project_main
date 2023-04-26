@@ -16,6 +16,10 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.relativelayout import MDRelativeLayout
 from kivymd.uix.label import MDLabel,MDIcon
+from kivy.uix.floatlayout import FloatLayout
+from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+import matplotlib.pyplot as plt
+
 
 
 
@@ -53,6 +57,13 @@ class Card(MDCard):
 class ContentNavigationDrawer(BoxLayout):
     pass
 
+#Define what we want to graph
+x = [1, 2, 3, 4, 5]
+y = [5, 12, 6, 9, 15]
+
+plt.plot(x,y)
+plt.ylabel("Y Axis")
+plt.xlabel("X Axis")
 
 
 class BudgetBuddy(MDApp):
@@ -127,6 +138,7 @@ class BudgetBuddy(MDApp):
         
         sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
+        sm.add_widget(Builder.load_file("kv/graph1.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
         sm.add_widget(Builder.load_file("kv/login.kv"))
         sm.add_widget(Builder.load_file("kv/signup.kv"))
@@ -186,6 +198,16 @@ class BudgetBuddy(MDApp):
     def profile(self):      
         sm.current= "profile"
         sm.transition.direction = "left"
+    def graph(self):      
+        sm.current= "graph1"
+        sm.transition.direction = "left"
+        box = self.root.get_screen('graph1').ids.box
+        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
+
+    def save_it(self):
+        name = self.root.get_screen('graph1').ids.namer.text
+        if name:
+            plt.savefig(name)
     def home(self):
         sm.current = "home2"
         self.root.get_screen('home2').ids.name.text = self.USERNAME
