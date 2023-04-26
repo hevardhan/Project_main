@@ -4,6 +4,8 @@ from kivy.lang import Builder
 import matplotlib.pyplot as plt
 from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 
+
+
 x = [1, 2, 3, 4]
 y = [5, 10, 12, 9]
 
@@ -22,7 +24,7 @@ class Demo(FloatLayout):
 
 class Main(App):
     def build(self):
-        Builder.load_file("kv/graph.kv")
+        Builder.load_file("kv/graph1.kv")
         return Demo()
 
 
