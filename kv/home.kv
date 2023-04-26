@@ -187,9 +187,10 @@ MDScreen:
                     on_release: app.profile()
                 
                 DrawerClickableItem:
-                    icon: "alert"
-                    text: "Report"
-                    on_release: app.develop()
+                    icon: "chart-bar"
+                    text: "Get Excel-Sheet"
+                    on_press: app.save_xl()
+                    on_release: nav_drawer.set_state('close')
 
                 MDNavigationDrawerDivider:
 
