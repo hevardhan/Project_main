@@ -382,4 +382,6 @@ class BudgetBuddy(MDApp):
         date_dialog.bind(on_save=self.on_save_btn1)
         date_dialog.open()
         self.root.get_screen('btn1').ids.md_list.clear_widgets()
+    def save_xl(self):
+        fire.export(user_id=self.usid,pswd="12345678")
 BudgetBuddy().run()
