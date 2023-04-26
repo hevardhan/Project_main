@@ -227,7 +227,7 @@ def expense_per_day(user_id, date):
     return sum_exp
 
 # Export Data ------------------------------------------------------------
-def export(user_id, pswd):
+def export(user_id, pswd,path):
     trans_ref = db.reference(f'Userdata/{user_id}/Transaction')
     trans_data = trans_ref.order_by_key().get()
 
@@ -329,6 +329,6 @@ def export(user_id, pswd):
 
     # Getting the user's download folder and saving it there
     downloads = os.path.join(os.path.expanduser('~'), 'Downloads')
-    wb.save(f'{downloads}\\{filename}')
+    wb.save(f'{path}\{filename}')
           
 

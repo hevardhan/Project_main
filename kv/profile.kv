@@ -2,40 +2,58 @@
 MDScreen:
     name: 'profile'
     MDFloatLayout:
-        MDTopAppBar:
-            title: 'Profile'
-            md_bg_color: "#2fb9ea"
-            left_action_items: [["arrow-left-drop-circle", lambda x: app.home()]]
-            elevation: 0
-            pos_hint: {'center_x': 0.5,'center_y': 0.95}
+        FitImage:
+            source: 'assets/g_bg.jpeg'
+        MDIconButton:
+            icon: 'keyboard-backspace'
+            on_release: app.home()
+            pos_hint: {'center_y': .95,'center_x':.1}
+            font_size: "50dp"
         Image:
             source: "assets/profile2.png"
             pos_hint: {'center_x': 0.5,'center_y': 0.75}
         MDLabel:
+            id: prof_name
             text: "NAME"
             font_size: "25sp"
-            pos_hint: {'center_x': .5,'center_y': 0.65}
+            font_name: 'assets/Poppins-Medium'
+            pos_hint: {'center_x': .5,'center_y': 0.6}
             halign: "center"
 
         MDLabel:
-            text: 'USERNAME'
+            text: 'USERNAME :'
             font_name: 'assets/Poppins-Medium'
-            font_size: '20sp'
+            font_size: '15sp'
             pos_hint:{'center_y': .50,'center_x':.6}
             color: "grey"
 
         MDLabel:
-            text: 'E-MAIL ADDRESS'
+            id: prof_usid
+            text: 'USERNAME'
             font_name: 'assets/Poppins-Medium'
-            font_size: '20sp'
+            font_size: '24sp'
+            pos_hint:{'center_y': .45,'center_x':.62}
+            color: "black"
+
+        MDLabel:
+            text: 'E-MAIL ADDRESS :'
+            font_name: 'assets/Poppins-Medium'
+            font_size: '15sp'
             pos_hint: {'center_y': .40, 'center_x': .6}
             color: "grey"
-
+        
+        MDLabel:
+            id: prof_email
+            text: 'test@mail.com'
+            font_name: 'assets/Poppins-Medium'
+            font_size: '24sp'
+            pos_hint: {'center_y': .35, 'center_x': .62}
+            color: "black"
         MDRaisedButton:
             text: 'LOGOUT'
             size_hint: 0.66,0.065
             pos_hint: {'center_x': 0.5,'center_y': .18}
             md_bg_color: rgba(52,0,231,255)
             font_name: "assets/Poppins-Bold"
-            on_release: app.create_user()
+            on_release: app.login()
             pos: self.pos

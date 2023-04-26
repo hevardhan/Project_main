@@ -1,24 +1,25 @@
 from kivy.uix.screenmanager import ScreenManager,Screen
-from kivy.core.window import Window
-from kivy.lang import Builder
-from kivymd.app import MDApp
-from kivymd.uix.snackbar import Snackbar
-from kivymd.uix.card import MDCard
+from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
-import fire 
 from kivy.core.text import LabelBase
-from kivymd.uix.pickers import MDDatePicker
-from database import display_date
-from datetime import datetime
-from kivymd.uix.menu import MDDropdownMenu
+from kivy.core.window import Window
+from kivy.lang import Builder
+
+from kivymd.app import MDApp
+from kivymd.uix.card import MDCard
 from kivymd.uix.dialog import MDDialog
+from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.button import MDFlatButton
-from kivymd.uix.relativelayout import MDRelativeLayout
+from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.label import MDLabel,MDIcon
-from kivy.uix.floatlayout import FloatLayout
-import matplotlib.pyplot as plt
+from kivymd.uix.pickers import MDDatePicker
+from kivymd.uix.filemanager import MDFileManager
+from kivymd.uix.relativelayout import MDRelativeLayout
+
+import fire 
 from plyer import filechooser
+from database import display_date
 
 
 
@@ -63,6 +64,24 @@ class BudgetBuddy(MDApp):
     
     global sm
     sm = ScreenManager()
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs) 
+        self.file_manager_obj = MDFileManager(
+            select_path =self.select_path,
+            exit_manager=self.exit_manager,
+            preview=True
+        )
+        
+    def select_path(self,path):
+        fire.export(user_id="hevardhan",pswd="12345678",path=path)
+        self.exit_manager(self)
+    def open_file_manager(self):
+        self.file_manager_obj.show("/")
+        
+    
+    def exit_manager(self,obj):
+        self.file_manager_obj.close()
     
     def dropdown(self):
 
@@ -119,8 +138,8 @@ class BudgetBuddy(MDApp):
         self.theme_cls.primary_palette = "Blue"
         self.theme_cls.primary_hue = "500"
         self.theme_cls.accent_palette = "Gray"
-        self.USERNAME = " "
-        self.usid = ''
+        self.USERNAME = "Hevardhan"
+        self.usid = 'hevardhan'
         self.Balance = 0
         self.dialog = MDDialog()
         self.speed_dial = {
@@ -191,7 +210,8 @@ class BudgetBuddy(MDApp):
     def profile(self):      
         sm.current= "profile"
         sm.transition.direction = "left"
-
+        self.root.get_screen('profile').ids.prof_name.text = self.USERNAME
+        self.root.get_screen('profile').ids.prof_usid.text = self.usid
     def home(self):
         sm.current = "home2"
         self.root.get_screen('home2').ids.name.text = self.USERNAME
@@ -372,7 +392,5 @@ class BudgetBuddy(MDApp):
         date_dialog.bind(on_save=self.on_save_btn1)
         date_dialog.open()
         self.root.get_screen('btn1').ids.md_list.clear_widgets()
-    
-    def save_xl(self):
-        filechooser.save_file()
+
 BudgetBuddy().run()
