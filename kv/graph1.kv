@@ -1,16 +1,22 @@
 MDScreen:
     name: 'graph1'
-    BoxLayout:
-        id:box
-        size_hint_y: .8
-        pos_hint:{"top":1}
-
-    BoxLayout:
-        size_hint_y: .2
-        TextInput:
-            id: namer
-            multiline: False
-
-        Button:
-            text: "Save It!!"
-            on_release: app.save_it()
+    MDFloatLayout:
+        FitImage:
+            source: 'assets/bg_d.jpg'
+        MDIconButton:
+            icon: 'keyboard-backspace'
+            on_release: app.home()
+            pos_hint: {'center_y': .95,'center_x':.1}
+            font_size: "50dp"
+        MDLabel:
+            text: 'Reports :'
+            pos_hint: {'center_y': .90}
+            padding_x: 30
+            font_name: 'assets/Poppins-Medium'
+        MDGridLayout:
+            id:box
+            rows: 1
+            cols:1
+            size_hint: None, None
+            size: "500dp", "500dp"
+            pos_hint: {'center_y': .6,'center_x': .8}

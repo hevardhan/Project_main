@@ -136,7 +136,7 @@ class BudgetBuddy(MDApp):
         }
         
         
-        sm.add_widget(Builder.load_file("kv/startup.kv"))
+        # sm.add_widget(Builder.load_file("kv/startup.kv"))
         sm.add_widget(Builder.load_file("kv/home.kv"))
         sm.add_widget(Builder.load_file("kv/graph1.kv"))
         sm.add_widget(Builder.load_file("kv/profile.kv"))
@@ -203,11 +203,6 @@ class BudgetBuddy(MDApp):
         sm.transition.direction = "left"
         box = self.root.get_screen('graph1').ids.box
         box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
-
-    def save_it(self):
-        name = self.root.get_screen('graph1').ids.namer.text
-        if name:
-            plt.savefig(name)
     def home(self):
         sm.current = "home2"
         self.root.get_screen('home2').ids.name.text = self.USERNAME
