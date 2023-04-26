@@ -7,7 +7,6 @@ from database import display_date,date
 from openpyxl.workbook.protection import WorkbookProtection
 from openpyxl import Workbook
 from openpyxl.chart import DoughnutChart, Reference
-from openpyxl.chart.series import DataPoint
 import os.path
 
 # Firebase Configurationcand Credentials---------------------------------------------------------------
@@ -172,6 +171,30 @@ def balance(user_id):
                     sum_exp += int(trans_details[date][key]['Amount'])
 
     return sum_inc - sum_exp
+
+# MOnthly Balance --------------------------------------------------
+def monthly_balance(userid):
+    trans_ref = db.reference(f'Userdata/{userid}/Transaction')
+    trans_details = trans_ref.order_by_key().get()
+    
+    sum_inc = 0
+    sum_exp = 0
+
+    months = ["Jan","Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    bal = [0,0,0,0,0,0,0,0,0,0,0,0]
+
+    for date in trans_details:
+        for i in range(1,12):
+            if months[i] in date:
+                for key in trans_details[date]:
+                    if key.isnumeric():
+                        if trans_details[date][key]['Type'] == "Income":
+                            bal[i] += int(trans_details[date][key]['Amount'])
+                        else:
+                            bal[i] -= int(trans_details[date][key]['Amount'])
+    print(bal)
+    return bal
+
 
 # Getting Display Name ------------------------------------------------------------------
 def get_display_name(uid):
