@@ -201,6 +201,7 @@ class BudgetBuddy(MDApp):
     def graph(self):      
         sm.current= "graph1"
         sm.transition.direction = "left"
+        self.root.get_screen('graph1').ids.box.clear_widgets()
         box = self.root.get_screen('graph1').ids.box
         box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
     def home(self):
