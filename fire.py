@@ -4,6 +4,12 @@ from firebase_admin import credentials
 from firebase_admin import initialize_app as f_admin_init
 from firebase_admin import db, auth, _auth_utils
 from database import display_date,date
+from openpyxl.workbook.protection import WorkbookProtection
+from openpyxl import Workbook
+from openpyxl.chart import DoughnutChart, Reference
+from openpyxl.chart.series import DataPoint
+import os.path
+
 # Firebase Configurationcand Credentials---------------------------------------------------------------
 firebaseConfig = {
   "apiKey": "AIzaSyCpjyclqZqiL5lkrEGH5KZEwyli3NXNJI0",
@@ -165,8 +171,6 @@ def balance(user_id):
                 else:
                     sum_exp += trans_details[date][key]['Amount']
 
-
-
     return sum_inc - sum_exp
 
 # Getting Display Name ------------------------------------------------------------------
@@ -184,7 +188,6 @@ def history_per_day(user_id, date):
         if key.isnumeric():
             trans_data.append(trans_details[date][key])
             
-
     return trans_data
 
 def expense_per_day(user_id, date):
@@ -199,3 +202,76 @@ def expense_per_day(user_id, date):
                 sum_exp += trans_details[date][key]['Amount']
 
     return sum_exp
+
+# Export Data ------------------------------------------------------------
+def export(user_id, pswd):
+    trans_ref = db.reference(f'Userdata/{user_id}/Transaction')
+    trans_data = trans_ref.order_by_key().get()
+
+    name_ref = db.reference(f'Userdata/{user_id}')
+    name_data = name_ref.order_by_key().get()
+    name = name_data['Name']
+    t_no = name_data['Number of Transactions']
+
+    wb = Workbook()
+    ws = wb.active
+    # ws1 = wb.create_sheet("Expenses")
+
+    ws.merge_cells('A1:F1')
+    cell1 = ws['A1']
+    cell1.value = f'Name: {name}'
+
+    ws.merge_cells('A2:F2')
+    cell2 = ws['A2']
+    cell2.value = f'Number of Transactions : {t_no}'
+
+    ws['A4'] = 'SNO'
+    ws['B4'] = 'Date'
+    ws['C4'] = 'Description'
+    ws['D4'] = 'Category'
+    ws['E4'] = 'Amount'
+    ws['F4'] = 'Type'
+
+    i = 5
+    j = 1
+
+    for date in trans_data:
+        for key in trans_data[date]:
+            if key.isnumeric():
+                ws[f'A{i}'] = j
+                ws[f'B{i}'] = date
+                ws[f'C{i}'] = trans_data[date][key]['Description']
+                ws[f'E{i}'] = trans_data[date][key]['Amount']
+                ws[f'F{i}'] = trans_data[date][key]['Type']
+                try:
+                    ws[f'D{i}'] = trans_data[date][key]['Category']
+                except:
+                    ws[f'D{i}'] = "NA"
+                
+                i +=1
+                j +=1
+    
+    
+    # chart = DoughnutChart()
+
+    # labels = Reference(ws, min_col= 4, min_row=5, max_row=t_no+5)
+    # data = Reference(ws, min_col=5, min_row=4, max_row=t_no+5)
+
+    # chart.add_data(data, titles_from_data=True)
+    # chart.set_categories(labels)
+    # chart.title = "Expense Distribution"
+    # chart.style = 26
+    # ws.add_chart(chart, "H1")
+
+    filename = 'Transactions.xlsx'
+
+    wb.security = WorkbookProtection(workbookPassword=f'{pswd}', lockStructure=True, lockWindows=True)
+    ws.protection.sheet = True
+    ws.protection.password = f'{pswd}'
+
+    # Getting the user's download folder and saving it there
+    downloads = os.path.join(os.path.expanduser('~'), 'Downloads')
+    wb.save(f'{downloads}\\{filename}')
+
+            
+
