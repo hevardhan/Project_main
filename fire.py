@@ -329,6 +329,6 @@ def export(user_id, pswd,path):
 
     # Getting the user's download folder and saving it there
     downloads = os.path.join(os.path.expanduser('~'), 'Downloads')
-    wb.save(f'{path}\{filename}')
+    wb.save(f'{path}/{filename}')
           
 

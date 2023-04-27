@@ -18,7 +18,6 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.relativelayout import MDRelativeLayout
 
 import fire 
-from plyer import filechooser
 from database import display_date
 
 
@@ -74,6 +73,7 @@ class BudgetBuddy(MDApp):
         )
         
     def select_path(self,path):
+        print(path)
         fire.export(user_id="hevardhan",pswd="12345678",path=path)
         self.exit_manager(self)
     def open_file_manager(self):
